@@ -1,0 +1,22 @@
+{
+  "name": "wx-app-broadlink",
+  "version": "1.0.0",
+  "description": "BroadLink智慧办公小程序",
+  "main": "app.js",
+  "dependencies": {
+    "@vant/weapp": "^1.6.4",
+    "mobx-miniprogram": "^4.13.2",
+    "mobx-miniprogram-bindings": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.broadlink.com.cn:h5/wx-app-bi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
