@@ -1,0 +1,84 @@
+
+  <view class="container containerBox">
+    
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$toptaskFlow$isBackShow}}" class="topCommon topBack" bindtap="$toptaskFlow$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+        <text class="title">整体流程</text>
+      </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <view class="taskContent">
+      <scroll-view scroll-y style="height: {{height?height+'px':'1174rpx'}}">
+        <view class="flowNodes">
+          <view class="flowNormal {{hasAbnormal?'hasAbnormal':''}}">
+            <block wx:for="{{normalNodes}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+              <block>
+                <view class="taskItem">
+                  <view class="taskInfoT">
+                    <view class="taskIcon">
+                      <image class="user-icon" src="{{item.iconpath?item.iconpath:'../../assets/images/task/default_photo.png'}}" mode="aspectFit"/>
+                    </view>
+                    <view class="taskInfoR">
+                      <view class="taskName">
+                        <text>{{ item.node_name }}</text>
+                        <image src="../../assets/images/task/inhand.png" class="taskInhand"  wx:if="{{item.isInhand && item.node_id!=='ENDING'}}"/>
+                      </view>
+                      <view class="taskTime">
+                        <text>{{ item.user_name }}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <view class="flowPoints"  wx:if="{{index!==normalNodes.length-1}}">
+                  <view class="points">.</view>
+                  <view class="points">.</view>
+                  <view class="points">.</view>
+                </view>
+              </block>
+            </block>
+          </view>
+          <view class="flowAbnormal">
+            <block wx:for="{{abnormalNodes}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+              <block>
+                <view class="taskItem">
+                  <view class="taskInfoT">
+                    <view class="taskIcon">
+                      <image class="user-icon" src="{{item.iconpath?item.iconpath:'../../assets/images/task/default_photo.png'}}" mode="aspectFit"/>
+                    </view>
+                    <view class="taskInfoR">
+                      <view class="taskName">
+                        <text>{{ item.node_name }}</text>
+                        <image src="../../assets/images/task/inhand.png" class="taskInhand" wx:if="{{item.isInhand && item.node_id!=='ENDING'}}"/>
+                      </view>
+                      <view class="taskTime">
+                        <text>{{ item.user_name }}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <view class="flowPoints" wx:if="{{index!=abnormalNodes.length-1}}">
+                  <view class="points">.</view>
+                  <view class="points">.</view>
+                  <view class="points">.</view>
+                </view>
+              </block>
+            </block>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>

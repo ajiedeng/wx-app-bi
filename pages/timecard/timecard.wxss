@@ -1,0 +1,96 @@
+/**timecard.wxss**/
+page{
+  height: 100%;
+  overflow: hidden;
+}
+.timecardBox {
+  margin-top: 24rpx;
+  background-color: #fff;
+  height: 100%;
+}
+.timecardBox .title{
+  display: block;
+  color: #999990;
+  padding-top: 32rpx;
+  padding-bottom: 64rpx;
+  margin: 0 auto;
+  text-align: center;
+}
+.cardInfo {
+  padding-left: 42rpx;
+}
+.cardInfo text{
+  display: inline-block;
+}
+.cardInfo .anchor{
+  font-size: 18rpx;
+  color: #fff;
+  background-color: #D2D2D2;
+  border-radius: 50%;
+  margin-right: 32rpx;
+  width: 36rpx;
+  height: 36rpx;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 36rpx;
+}
+.anchor.cur{
+  background-color: #007FFF;
+}
+.cardInfo .time{
+  font-size: 32rpx;
+  color: #111110;
+  margin-right: 16rpx;
+}
+.cardInfo .tag{
+  font-size: 20rpx;
+  color: #007FFF;
+  padding: 4rpx 32rpx;
+  border: 2rpx solid #007FFF;
+}
+.tag.err {
+  color: #FF8C16;
+  border: 2rpx solid #FF8C16;
+}
+.holdblank {
+  margin: 24rpx 0 24rpx 58rpx;
+  border-left: 4rpx solid #D2D2D2;
+  height: 200rpx;
+}
+.circleBox {
+  width: 304rpx;
+  height: 304rpx;
+  margin: 70rpx auto;
+  background-color: rgba(0,127,255,.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.circleBox .circleInner{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 272rpx;
+  height: 272rpx;
+  background:linear-gradient(183deg,rgba(36,182,255,1) 0%,rgba(0,127,255,1) 100%);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.circleBox.late{
+  background-color: rgba(255,140,22,.15);
+}
+.circleBox.late .circleInner{
+  background:linear-gradient(183deg,#f1bf8c 0%,#FF8C16 100%);
+}
+.circleBox .circleInner .circleTxt{
+  font-size: 40rpx;
+  color: #fff;
+  font-weight: 500;
+}
+.circleBox .circleInner .curTime{
+  font-size: 28rpx;
+  color: rgba(255,255,255,.6);
+  font-weight: 400;
+}

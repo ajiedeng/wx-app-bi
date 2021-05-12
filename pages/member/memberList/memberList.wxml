@@ -1,0 +1,64 @@
+<!--pages/member/memberList/memberList.wxml-->
+<mp-navigation-bar color="#000" background="#fff" title="人员列表" back="{{true}}"></mp-navigation-bar>
+<view class="page">
+	<view class="search-filter">
+		<view class="search">
+			<van-dropdown-menu z-index="11" class="selectMenu">
+				<van-dropdown-item value="{{ filteValue }}" bind:change="onSelectMenuChange" options="{{ filterList }}" />
+			</van-dropdown-menu>
+			<van-search class="searchValue" value="{{ searchValue }}" bind:clear="onCloseSearchView" bind:change="onChange"
+				placeholder="{{'请输入' + searchHolder}}" />
+		</view>
+	</view>
+	<view id="srcollview" style="overflow-y: auto;height: calc(100% - {{ contentHeight }}px)">
+		<i-index height="100%" increaseHight="{{contentHeight * 0.7}}">
+			<block wx:for="{{ chartSource }}" wx:for-index="index" wx:key="{{index}}" wx:for-item="chart">
+				<template wx:if="{{!chart.hidden}}" is="member" data="{{chart}}" />
+			</block>
+		</i-index>
+	</view>
+	<view class="bottom">
+		<view class="selectedMem" bindtap="onCheckSelect">
+			<text>已选择 {{selectedNumb}} 人</text>
+			<van-icon name="{{selectedShow ? 'arrow-up' : 'arrow-down'}}" color="#0077FF" />
+		</view>
+		<view class="confirm" bindtap="confirmMemberList">确认选择</view>
+	</view>
+</view>
+<!-- 已选结果 -->
+<van-popup show="{{ selectedShow }}" overlay="{{true}}" position="bottom" custom-style="height: 40%;"
+	safe-area-inset-bottom="{{true}}" bind:close="onCheckClose">
+	<view wx:for="{{selectedMemberList}}" wx:key="did" wx:for-index="idx">
+		<view class="selectedlist" wx:if="{{item.selected}}">
+			<view class="selectedname">{{item.name}}</view>
+			<view class="selectedDelete">
+				<van-icon name="cross" size="20px" data-index="{{idx}}" bind:click="onSelectedDel" />
+			</view>
+		</view>
+	</view>
+</van-popup>
+<!-- 列表模板 -->
+<template name="member">
+	<i-index-item name="{{chart.firstChart}}">
+		<view wx:for="{{chart.list}}" wx:key="idx" data-index="{{idx}}" data-charts="{{item.chart}}" wx:for-index="idx"
+			bindtap="onSelect">
+			<view class="memberlist" wx:if="{{!item.hidden}}">
+					<van-checkbox value="{{ item.selected }}">
+					</van-checkbox>
+					<view class="avatar">
+						<van-icon size="40px" color="#0077FF" name="friends" />
+					</view>
+					<view class="content">
+						<view class="title">
+							<view>{{item.name}}</view>
+							<view>{{item['organizationid.name'] || ''}}</view>
+						</view>
+						<view class="info">
+							<view>手机号: <text data-phone="{{item.phonenumber}}" catch:tap="makePhoneCall">{{item.phonenumber}}</text>
+							</view>
+						</view>
+					</view>
+			</view>
+		</view>
+	</i-index-item>
+</template>

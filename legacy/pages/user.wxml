@@ -1,0 +1,29 @@
+
+  <view class="container containerBox" bindtouchstart="touchS" bindtouchend="touchE">
+    <view class="topSection">
+      <image class="userTopBg" src="../assets/images/mine/tab_2_background.png"/>
+      <view class="topBlock">
+        <view class="topCommon topTitle">
+          <view class="userAvatar">
+            <view class="userImage" bindtap="bindGetUserInfo">
+              <open-data type="userAvatarUrl"/>
+            </view>
+          </view>
+          <view class="topR" bindtap="userToLogin">
+            <view class="topCommon topText">
+              <text class="topCommon topHead white"  wx:if="{{isLogin}}">{{userNickName}}</text>
+              <text class="topCommon topHead"  wx:if="{{isLogin}}" style="color:red;">[退出]</text>
+              <text class="topCommon topHead white" wx:else>请登录</text>
+            </view>
+            <view class="topCommon topTip">
+              <text class="iconfont icon-jiantouarrow487"/>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <button open-type="feedback">意见反馈</button> -->
+    <view class="verBottom">
+      <text class="gray24">{{'V'+ version}}</text>
+    </view>
+  </view>

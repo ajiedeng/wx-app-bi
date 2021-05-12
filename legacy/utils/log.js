@@ -1,0 +1,1 @@
+"use strict";exports.print=function(){},exports.uploadLog=function(){},exports.printAndUpload=function(){};

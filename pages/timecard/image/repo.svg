@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon_warehouse</title>
+    <desc>Created with Sketch.</desc>
+    <g id="视觉稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-11-Pro备份-12" transform="translate(-36.000000, -537.000000)">
+            <g id="icon_warehouse" transform="translate(36.000000, 537.000000)">
+                <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="26" height="26"></rect>
+                <g id="编组-4备份" transform="translate(0.928571, 0.928571)">
+                    <polygon id="Combined-Shape-Copy" fill="#007FFF" points="16.6183889 3.01785714 7.24742965 8.04189761 7.24742965 13.8282121 9.60806457 15.0892857 9.60806457 9.5259375 19.3188582 4.30018284"></polygon>
+                    <path d="M13.0714286,0.577350269 L21.5255924,5.45836402 C22.1443945,5.81562961 22.5255924,6.47588364 22.5255924,7.19041482 L22.5255924,16.9524423 C22.5255924,17.6669735 22.1443945,18.3272275 21.5255924,18.6844931 L13.0714286,23.5655069 C12.4526264,23.9227725 11.6902307,23.9227725 11.0714286,23.5655069 L2.61726477,18.6844931 C1.99846262,18.3272275 1.61726477,17.6669735 1.61726477,16.9524423 L1.61726477,7.19041482 C1.61726477,6.47588364 1.99846262,5.81562961 2.61726477,5.45836402 L11.0714286,0.577350269 C11.6902307,0.220084679 12.4526264,0.220084679 13.0714286,0.577350269 Z" id="多边形" stroke="#111111" stroke-width="2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,2 @@
+@import "./../../components/skeleton.wxss";
+@import "./../../components/topBar.wxss";

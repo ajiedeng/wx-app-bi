@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon_dengdai</title>
+    <desc>Created with Sketch.</desc>
+    <g id="访客预约（0914）✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="会议室即将到期" transform="translate(-20.000000, -111.000000)">
+            <g id="icon_dengdai" transform="translate(20.000000, 111.000000)">
+                <g id="icon_success备份" stroke="#FFFFFF" stroke-width="2">
+                    <circle id="形状结合备份" cx="20" cy="20" r="19"></circle>
+                </g>
+                <path d="M26.925119,26.8660605 L18.5959253,23.9119757 C18.5959253,23.9119757 18.5959253,23.9119757 18.5949707,23.9119757 L18.4708824,23.8680043 C18.1177081,23.6541428 17.9506669,23.2404128 18.0127118,22.8426688 L18.0127118,10.9993535 C18.0127118,10.4477128 18.4403382,10 18.9672378,10 C19.4941339,10 19.9217638,10.4477091 19.9217638,10.9993535 L19.9217638,22.3130159 L27.8796306,25.1351882 C28.335892,25.4110093 28.4924352,26.0226145 28.2289868,26.5003034 C27.9645835,26.9779922 27.3813674,27.1418872 26.925106,26.8660665 L26.925119,26.8660605 Z" id="路径" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

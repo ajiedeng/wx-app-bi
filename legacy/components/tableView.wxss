@@ -1,0 +1,9 @@
+@import "./noSum.wxss";
+@import "./sum.wxss";
+@import "./datetime.wxss";
+@import "./date.wxss";
+@import "./sText.wxss";
+@import "./mText.wxss";
+@import "./selector.wxss";
+@import "./file.wxss";
+.thead{background:#fff;padding-top:24rpx;box-sizing:border-box}.tableName{background:#EFEFF4;height:80rpx;line-height:80rpx;font-weight:700;padding:0 24rpx}.tableName .gray99{color:#999}.tbRow{display:flex;flex-direction:column}.tbRow .tableRow{width:100%;background:#FAFAFA;font-weight:700;padding:0 24rpx;height:72rpx;line-height:72rpx;box-sizing:border-box}.tbRow .tableRow.tableNoRow{display:flex;justify-content:space-between}.tbRow .tableRow .handleBtn{display:flex;justify-content:flex-end;font-size:28rpx}.tbRow .tableRow .handleBtn .addBtn{padding-left:16rpx;color:#324ebd}.tbRow .tableRow .handleBtn .delBtn{color:red;padding-left:16rpx}

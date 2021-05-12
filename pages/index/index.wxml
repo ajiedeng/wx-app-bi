@@ -1,0 +1,53 @@
+<!--index.wxml-->
+<view class="indexPage">
+	<mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" title="BroadLink" back="{{false}}">
+		<view slot="left" class="navi">
+			<view catchtap="toggleMenu" hover-stop-propagation="true"><image src="./image/menu.svg" ></image></view>
+			<view catchtap="naviScan" hover-stop-propagation="true"><image src="./image/scan.svg" ></image></view>
+		</view>
+	</mp-navigation-bar>
+		<!-- <mp-loading show="{{pullDownFlag}}" duration="{{900}}" ext-class="pageLoading" animated="true" type="circle"></mp-loading> -->
+	<view class="cardBox">
+		<!-- 考勤 -->
+		<view class="card" bindtap="goTotimecard">
+			<view class="cardTxt">
+				<text>{{morning?'早':'晚'}}</text>
+				<text class="title">考勤打卡</text>
+			</view>
+			<image src="./image/location.svg"></image>
+		</view>
+		<!-- 考勤 -->
+
+		<view wx:key="unique" wx:for="{{vtList}}" data-pid="{{item.pid}}" data-label="{{item.label}}" class="card" bindtap="goToListDetail">
+			<view class="cardTxt">
+				<text>{{item.value == null ?'--':item.value}}</text>
+				<text class="title">{{item.label}}</text>
+			</view>
+			<image src="{{item.img}}"></image>
+		</view>
+
+
+
+
+	</view>
+	<view class="listBox">
+		<text>我的列表</text>
+		<view class="listBarBox">
+			<view wx:if="{{list.length<=0}}">
+				<mp-loading type="circle"></mp-loading>
+			</view>
+			<view wx:else>
+				<view wx:key="unique" wx:for="{{myList}}" data-pid="{{item.pid}}" data-filter="{{item.filter}}" data-label="{{item.name}}" class="listBar" bindtap="goToListDetail">
+					<image src="{{iconMaps[item.pid]||iconMaps['DEFAULT_ICON']}}"></image>
+					<text>{{item.name}}</text>
+				</view>
+			</view>
+
+		</view>
+
+
+	</view>
+	<mp-dialog title="门锁动态密码" show="{{passwordDialogShow}}" bindbuttontap="known" buttons="{{oneButton}}">
+		<view>{{password+'(有效期1分钟)'}}</view>
+	</mp-dialog>
+</view>

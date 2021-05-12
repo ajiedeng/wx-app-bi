@@ -1,0 +1,14 @@
+<!--pages/meeting/meetingRoomList/meetingRoomList.wxml-->
+<mp-navigation-bar color="#000" background="#fff" title="会议室" back="{{true}}"></mp-navigation-bar>
+<view class="meetingList" id="meetingList" style="height: calc(100% - {{contentHeight}}px)">
+  <view class="meetingDetail {{item.selected ? 'selected' : ''}}" wx:for="{{meetingList}}" wx:key="*this" data-did="{{item.did}}" bindtap="chooseMeetingRoom">
+		<view class="meetingImage">
+			<image src="./images/meeting.svg"></image>
+		</view>
+		<view class="meetingContent">
+			<view class="title">{{item.name}}</view>
+			<view class="info">容纳人数: {{item.capacity}} | 白板: {{item.haswhiteboard === 1 ? '有' : '无'}} | 投影: {{item.hasvideo === 1 ? '有' : '无'}}</view>
+			<view class="info">位置: {{item['space.name']}}</view>
+		</view>
+	</view>
+</view>

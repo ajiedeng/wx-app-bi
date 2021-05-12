@@ -1,0 +1,11 @@
+<!--pages/beforelogin/beforelogin.wxml-->
+<mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" title="BroadLink" back="{{false}}"></mp-navigation-bar>
+<view class="beforlogin">
+  <image class="loginimage" src="{{!preVisitor ? './images/login.svg' : './images/giveRights.svg'}}"></image>
+  <view class="buttons">
+    <view class="logobutton">
+      <button class="fastlogin" open-type="getPhoneNumber" bindgetphonenumber="blLogin"><image src="./images/wechatlogo.svg"></image>微信用户一键登录</button>
+    </view>
+    <button wx:if="{{!preVisitor}}" class="countlogin" bindtap="goCountLogin">输入手机号码登录/注册</button>
+  </view>
+</view>

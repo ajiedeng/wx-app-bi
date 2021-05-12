@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",
+    "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
+    "mp-checkbox": "/miniprogram_npm/weui-miniprogram/checkbox/checkbox",
+    "mp-checkbox-group": "/miniprogram_npm/weui-miniprogram/checkbox-group/checkbox-group",
+    "mp-form": "/miniprogram_npm/weui-miniprogram/form/form",
+    "van-uploader": "../../components/uploader",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "mp-icon":  "/miniprogram_npm/weui-miniprogram/icon/icon",
+    "period-picker": "../../components/period-picker"
+  },
+  "navigationStyle":"default"
+}

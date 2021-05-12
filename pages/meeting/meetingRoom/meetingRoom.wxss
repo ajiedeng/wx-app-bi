@@ -1,0 +1,190 @@
+/* pages/meetingRoom/meetingRoom.wxss */
+.meetingRoom{
+  overflow-y: auto;
+  height: 100%;
+}
+.navi{
+  display: flex;
+  justify-content: center;
+}
+.navi view {
+  padding: 0 24rpx;
+  height: 40rpx;
+}
+.navi view image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.naviTitle view {
+  color: #FFFFFF;
+}
+.background{
+  height: 240rpx;
+  background-color: #007FFF;
+}
+.background .backgroundType{
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx 50rpx;
+}
+.background .backgroundImage{
+  width: 80rpx;
+  height: 80rpx;
+  text-align: center;
+  margin-right: 20rpx;
+}
+.background .backgroundImage image{
+  margin-top: 8rpx;
+}
+.background  .backgroundTypeContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.background  .backgroundTypeContent .tittle{
+  font-size: 44rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 40rpx;
+}
+.background  .backgroundTypeContent .note{
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 60rpx;
+  opacity: .6;
+}
+.meetingTittle{
+  height: 114rpx;
+  padding: 0 40rpx;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-bottom: solid 1rpx #E1E1E1;
+  border-radius: 8rpx 8rpx 0rpx 0rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.meetingTittle .control text{
+  color: #1F8EFF;
+}
+.meetingContent{
+  margin: -20rpx 24rpx 0rpx 24rpx;
+  border-radius: 8rpx 8rpx 0rpx 0rpx;
+  background-color: #fff;
+}
+.meetingContent .meetingList{
+  padding: 0rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  min-height: 80rpx;
+  color: #111111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.meetingContent .meetingList .meetingValue {
+  max-width: 223px;
+  color: #999999;
+}
+.meetingContent .meetingList .meetingValue:last-of-type{
+  line-height: 20px;
+  padding-bottom: 10px;
+}
+.meetingContent .meetingList .meetingMember{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.meetingContent .meetingList .meetingMember image{
+  width: 32rpx;
+  height: 32rpx;
+}
+.meetingBottom { 
+  width: 100%;
+  height: 124rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #FFFFFF;
+  position: fixed;
+  bottom: 0;
+}
+.meetingBottom view{
+  text-align: center;
+  color: #007FFF;
+  height: 40rpx;
+  flex: 1;
+}
+.split-border{
+  border-left: solid 4rpx #D2D2D2;
+}
+.margin-right-25{
+  margin-right: 25px;
+}
+.grey{
+  color: #999999;
+}
+.colorGrey{
+  color: #999999;
+}
+.colorBlue{
+  color: #1F8EFF;
+}
+.colorRed{
+  color: #FA5032;
+}
+.margin-right {
+  margin-right: 15rpx;
+}
+/* 取消预约弹框 */
+.showModule{
+  width: 100%;
+  height: 100%;
+}
+.cancle-content{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cancle-content .title{
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #111111;
+  line-height: 50px;
+}
+.cancle-content .input{
+  flex: 1;
+  box-sizing: border-box;
+  padding: 12px 16px;
+}
+.cancle-content .input input{
+  height: 46px;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 1px solid #D2D2D2;
+}
+.cancle-content .btn{
+  height: 46px;
+  line-height: 46px;
+  display: flex;
+  flex-direction: row;
+}
+.cancle-content .btn view{
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  border-top: solid 1px #E1E1E1;
+  color: #007FFF;
+}
+.cancle-content .btn view:first-of-type{
+  color: #111111;
+  border-right: solid 1px #E1E1E1;
+}
+.inputErr{
+  border-color: red !important;
+}

@@ -1,0 +1,66 @@
+<page-meta>
+    <navigation-bar title="访客预约"/>
+</page-meta>
+
+
+<!-- <view class="auth" wx:if="{{!logged && loginCode}}">
+    <image src="./images/giveRights.svg"></image>
+    <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="blLogin">授权登录</button>
+</view> -->
+
+
+<view class="page" wx:if="{{logged}}">
+
+    <van-cell-group title=" ">
+        <!-- <van-cell title="被访人" value="{{visituserName}}" /> -->
+        <van-field
+                data-key="visitusername"
+                label="被访人"
+                type="text"
+                placeholder="请输入"
+                error="{{!!error['visitusername']}}"
+                border="{{ false }}"
+                maxlength="100"
+                bind:change="inputChange"
+                error-message="{{error.visitusername}}"
+        />
+        <van-field
+                data-key="suffixphone"
+                label="手机后4位"
+                type="number"
+                placeholder="请输入"
+                error="{{!!error['suffixphone']}}"
+                border="{{ false }}"
+                maxlength="4"
+                bind:change="inputChange"
+                error-message="{{error.suffixphone}}"
+        />
+    </van-cell-group>
+
+    <van-cell-group title="请输入被访人的真实姓名，否则无法通过校验">
+        <block wx:for="{{fields}}">
+            <datetime-input wx:if="{{item.type ==='date' || item.type ==='datetime' || item.type ==='time'}}" minDate="{{today}}" data-key="{{item.key}}" value="{{today}}" formatter="{{formatTime}}" bind:change="inputChange"   title="{{item.title}}"  type="{{item.type}}" errorMessage="{{error.visittime}}"/>
+            <duration-picker wx:elif="{{item.type === 'select'}}" data-key="{{item.key}}" title="{{item.title}}" value="{{form[item.key]}}" bind:change="inputChange"  errorMessage="{{error.visitduration}}" />
+            <enum-input wx:elif="{{item.type === 'enum'}}"/>
+            <van-field  wx:else data-key="{{item.key}}" error="{{!!error[item.key]}}" value="{{form[item.key]}}" error-message="{{error[item.key]}}" bind:change="inputChange" placeholder="请输入" label="{{item.title}}" type="{{item.type}}"></van-field>
+        </block>
+    </van-cell-group>
+
+
+    <van-cell-group title="sss" wx:if="{{false}}">
+        <van-cell title="sssssdkl">
+            <van-uploader
+                    data-field="{{key}}"
+                    file-list="{{formData[key]}}"
+                    max-count="1"
+                    deletable="true"
+                    accept="{{'image'}}"
+                    bind:after-read="afterRead"
+                    bind:delete="imgDelete"
+                    bind:click-preview="clickPreview"
+            />
+        </van-cell>
+    </van-cell-group>
+
+    <view class="save bottom-safearea" type="default" bindtap="save">确定</view>
+</view>

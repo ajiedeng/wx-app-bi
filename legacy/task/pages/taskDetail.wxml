@@ -1,0 +1,408 @@
+
+  <view class="container containerBox">
+    
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$topTaskDetail$isBackShow}}" class="topCommon topBack" bindtap="$topTaskDetail$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+        <text class="title">任务详情</text>
+      </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <scroll-view class="taskScroll" scroll-y style="height: {{height?height+'px':'1174rpx'}}">
+      <!-- 头部任务状态 -->
+      <view class="taskHead">
+        <view class="taskHeadL">
+          <image src="{{jobInfo.relateiconpath?jobInfo.relateiconpath:'../../assets/images/task/default_photo.png'}}"/>
+        </view>
+        <view class="taskHeadR">
+          <view class="taskHeadRT">
+            <view class="taskNodeRTText">
+              <text class="taskNodeIssue">{{jobInfo.status_name}}</text>
+            </view>
+            <view class="taskBubble"  wx:if="{{!(jobInfo.status==='ENDING'||jobInfo.status==='TERMINATION')}}">
+              <image class="taskBubbleImage" src="../../assets/images/task/bubble@3x.png"/>
+              <view class="taskNodeState">
+                <text>处理中</text>
+              </view>
+            </view>
+          </view>
+          <view class="taskHeadRB">
+            <view class="taskNodeCharger">{{jobInfo.relate_user_name}}</view>
+            <view bindtap="toTaskFlow">查看整体流程<text class="iconfont icon-jiantouarrow487" style="color:#ababab;"/></view>
+          </view>
+        </view>
+      </view>
+      <!-- 主体任务信息 -->
+      <view class="taskMain">
+        <!-- 基本信息 -->
+        <view class="taskList taskBasic">
+          <view class="taskItemTop">
+            <view class="border2 taskItemTitle">
+              <view class="taskItemTopL">基本信息</view>
+              <view class="taskItemTopR" bindtap="hideBasicInfo" data-wpyhidebasicinfo-a="{{!isBasicHidden}}">
+                <text class="iconfont {{!isBasicHidden?'icon-shouqi':'icon-zhankai'}}"/>
+                <text class="blue">{{!isBasicHidden?' 收起':' 展开'}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="taskItemInfo" hidden="{{isBasicHidden}}" style="padding-bottom: 0;">
+            <view class="taskItem"><text class="taskItemtitle">任务名称：</text><text>{{jobInfo.job_name}}</text></view>
+            <view class="taskItem"><text class="taskItemtitle">任务编码：</text><text>{{jobInfo.job_numb}}</text></view>
+            <view class="taskItem"><text class="taskItemtitle">任务分类：</text><text>{{jobInfo.issue_class_name}}</text></view>
+            <view class="taskItem"><text class="taskItemtitle">任务：</text><text>{{jobInfo.issue_sub_class_name}}</text></view>
+            <view class="taskItem"><text class="taskItemtitle">创建人：</text><text>{{jobInfo.creat_user_name}}</text></view>
+            <view class="taskItem"><text class="taskItemtitle">创建时间：</text><text>{{jobInfo.created_at}}</text></view>
+            <view class="taskItem"><text class="taskItemtitle">超时时间：</text><text>{{jobInfo.time_out}}</text></view>
+          </view>
+        </view>
+        <!-- 模板信息 -->
+        <view class="taskList taskModule">
+          <view class="taskItemTop">
+            <view class="border2 taskItemTitle">
+              <view class="taskItemTopL">模板信息</view>
+              <view class="taskItemTopR" bindtap="hideModelInfo" data-wpyhidemodelinfo-a="{{!isModelHidden}}">
+                <text class="iconfont {{!isModelHidden?'icon-shouqi':'icon-zhankai'}}"/>
+                <text class="blue">{{!isModelHidden?' 收起':' 展开'}}</text>
+                </view>
+            </view>
+          </view>
+          <view class="taskItemInfo taskModuleInfo"  wx:if="{{!isModelHidden}}">
+            <block wx:if="{{item.canShow}}" wx:for="{{jobInfo.modelList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+              <view class="taskItem {{item.modeltype==='8'?'taskItem8':''}}">
+                <view wx:if="{{item.modeltype!=='7'&&item.modeltype!=='8'&&item.modeltype!=='11'}}" style="flex:1;" class="taskItemtitle taskItemML"><text>{{item.modelname}}：</text></view>
+                <view style="flex:2;" class="taskItemMR" wx:if="{{item.modeltype==='1'||item.modeltype==='2'||item.modeltype==='5'||item.modeltype==='10'||item.modeltype==='9'}}">
+                  <text>{{item.value}}</text>
+                </view>
+                <view style="flex:2;display:flex" wx:if="{{item.modeltype==='6'}}">
+                  <block wx:for="{{item.valueList}}" wx:for-index="index6" wx:for-item="item6" wx:key="index6">
+                    <text style="flex:1;margin-right:16rpx;">{{item6}}</text>
+                  </block>
+                </view>
+                <view style="flex:2;display:flex;flex-wrap:wrap" wx:if="{{item.modeltype==='4'}}">
+                  <block wx:for="{{item.multi_attach_buff}}" wx:for-index="index4" wx:for-item="item4" wx:key="source_id">
+                    <view wx:if="{{item4.isImg}}" class="b2 br4" style="margin-right:16rpx;" bindtap="previewImage" data-wpypreviewimage-a="{{item4}}" data-wpypreviewimage-b="{{item.multi_attach_buff}}">
+                      <image src="{{item4.downloadUrl}}" style="width:132rpx;height:132rpx;" lazy-load="false"/>
+                    </view>
+                    <view style="width:100%;padding:12rpx 0" class="item4File" wx:else bindtap="downloadFile" data-wpydownloadfile-a="{{item4.downloadUrl}}">
+                      <a data-href="{{item4.downloadUrl}}" style="color:#009FE0">{{item4.file_name}}</a>
+                    </view>
+                  </block>
+                </view>
+                <view style="display:flex;flex-direction:column;width:100%;" wx:if="{{item.modeltype==='8'}}">
+                  <view class="thead">
+                    <view class="tableName">
+                      <text class="gray99">{{item.modelname}}</text>
+                    </view>
+                  </view>
+                  <view class="tbody">
+                    <block wx:for="{{item.tbodyArray}}" wx:for-index="index8" wx:for-item="item8" wx:key="index8">
+                      <block wx:for="{{item8}}" wx:for-index="i" wx:for-item="itemInner" wx:key="i">
+                        <view class="tableRowItem">
+                          <view class="tableHead">
+                            <view class="tableRow" wx:if="{{itemInner.rowsName && i===0}}">{{itemInner.rowsName}}</view>
+                            <view class="tableRow" wx:if="{{!itemInner.rowsName && i===0}}">条目{{index8+1}}</view>
+                          </view>
+                          <view class="tableColumn {{i===(item8.length-1)?'mb24':''}}">
+                            <view class="title"><text class="gray28">{{itemInner.columnsName}}:</text></view>
+                            <view class="txt">
+                              <text hidden="{{!itemInner.content}}" wx:if="{{itemInner.columnsType !== 'file'}}">{{itemInner.content==='请选择'?'':itemInner.content}}</text>
+                              <view style="flex:2;display:flex;flex-wrap:wrap" wx:if="{{itemInner.columnsType === 'file'}}">
+                                <block wx:for="{{itemInner.multi_attach_buff}}" wx:for-index="index4" wx:for-item="item4" wx:key="source_id">
+                                  <view wx:if="{{item4.isImg}}" style="margin-right:16rpx;" bindtap="previewImage" data-wpypreviewimage-a="{{item4}}" data-wpypreviewimage-b="{{itemInner.multi_attach_buff}}">
+                                    <image src="{{item4.downloadUrl}}" style="width:132rpx;height:132rpx;border: 2rpx solid #ccc;" lazy-load="false"/>
+                                  </view>
+                                  <view style="width:100%;" wx:else bindtap="downloadFile" data-wpydownloadfile-a="{{item4.downloadUrl}}">
+                                    <a data-href="{{item4.downloadUrl}}" style="color:#009FE0">{{item4.file_name}}</a>
+                                  </view>
+                                </block>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                      </block>
+                    </block>
+                  </view>
+                </view>
+                <view style="display:flex;flex-direction:column;width:100%;" wx:if="{{item.modeltype==='11'}}">
+                  <view class="thead">
+                    <view class="tableName meetingTitle">
+                      <text class="gray99">确认来访信息</text>
+                    </view>
+                  </view>
+                  <view class="meetingItem">
+                    <view style="flex:1;" class="taskItemML">
+                      <view class="taskItemtitle"><text>是否预约会议室：</text></view>
+                    </view>
+                    <view style="flex:2;" class="taskItemMR">
+                      <text>{{ item.value && item.value.isreservedname }}</text>
+                    </view>
+                  </view>
+                  <view v-show="item.value.isreserved === '0'">
+                    <view class="meetingItem">
+                      <view style="flex:1;" class="taskItemML">
+                        <view class="taskItemtitle"><text>选择会议室：</text></view>
+                      </view>
+                      <view style="flex:2;" class="taskItemMR">
+                        <text>{{item.value && item.value.meetingroomname}}</text>
+                      </view>
+                    </view>
+                    <view class="meetingItem">
+                      <view style="flex:1;" class="taskItemML">
+                        <view class="taskItemtitle"><text>主题：</text></view>
+                      </view>
+                      <view style="flex:2;" class="taskItemMR">
+                        <text>{{item.value && item.value.name}}</text>
+                      </view>
+                    </view>
+                    <view class="meetingItem">
+                      <view style="flex:1;" class="taskItemML">
+                        <view class="taskItemtitle"><text>会议日期：</text></view>
+                      </view>
+                      <view style="flex:2;" class="taskItemMR">
+                        <text>{{item.value && item.value.mtdate}}</text>
+                      </view>
+                    </view>
+                    <view class="meetingItem">
+                      <view style="flex:1;" class="taskItemML">
+                        <view class="taskItemtitle"><text>会议时间段：</text></view>
+                      </view>
+                      <view style="flex:2;" class="taskItemMR">
+                        <text>{{item.value && item.value.mttime}}</text>
+                      </view>
+                    </view>
+                    <view class="meetingItem">
+                      <view style="flex:1;" class="taskItemML">
+                        <view class="taskItemtitle"><text>与会人员：</text></view>
+                      </view>
+                      <view style="flex:2;" class="taskItemMR">
+                        <text>{{ item.value && item.value.relatelabels }}</text>
+                      </view>
+                    </view>
+                    <view class="meetingItem">
+                      <view style="flex:1;" class="taskItemML">
+                        <view class="taskItemtitle"><text>备注：</text></view>
+                      </view>
+                      <view style="flex:2;" class="taskItemMR">
+                        <text>{{item.value && item.value.note}}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <!-- 相关处理人 -->
+        <view class="taskList taskCharger">
+          <view class="taskItemTop">
+            <view class="border2 taskItemTitle">
+              <view class="taskItemTopL">相关处理人</view>
+              <view class="taskItemTopR" bindtap="hideChargerInfo" data-wpyhidechargerinfo-a="{{!isChargerHidden}}">
+                <text class="iconfont {{!isChargerHidden?'icon-shouqi':'icon-zhankai'}}"/>
+                <text class="blue">{{!isChargerHidden?' 收起':' 展开'}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="taskItemInfo" hidden="{{isChargerHidden}}">
+            <view class="taskItem">
+              <view class="taskItemL">
+                <view class="taskItemLImg"><image src="{{jobInfo.relateiconpath?jobInfo.relateiconpath:'../../assets/images/task/default_photo.png'}}"/></view>
+              </view>
+              <view class="taskItemR">
+                <view class="taskItemFlow">
+                  <view class="taskItemFlowT" bindtap="modifyCharger" data-wpymodifycharger-a="{{jobInfo.status}}" data-wpymodifycharger-b="{{jobInfo.status_name}}">
+                    <view><text>当前负责人</text></view>
+                    <view><text style="color:#324EBD" hidden="{{currentUserid!==jobInfo.relate_user_id}}">修改</text></view>
+                  </view>
+                  <view><text style="color:#999;">{{jobInfo.relate_user_name}}</text></view>
+                </view>
+              </view>
+            </view>
+            <view class="taskItem">
+              <view class="taskItemL">
+                <view class="taskItemLImg"><image src="{{normalBtn.iconpath?normalBtn.iconpath:'../../assets/images/task/default_photo.png'}}"/></view>
+              </view>
+              <view class="taskItemR">
+                <view class="taskItemFlow">
+                  <view class="taskItemFlowT" bindtap="modifyCharger" data-wpymodifycharger-a="{{normalBtn.next_id}}" data-wpymodifycharger-b="{{normalBtn.next_name}}">
+                    <view><text>负责人({{normalBtn.next_name}})</text></view>
+                    <view><text style="color:#324EBD" wx:if="{{currentUserid===jobInfo.relate_user_id}}">修改</text></view>
+                  </view>
+                  <view><text style="color:#999;">{{normalBtn.nickname}}</text></view>
+                </view>
+              </view>
+            </view>
+            <block wx:for="{{abnormalBtn}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+              <view class="taskItem">
+                <view class="taskItemL">
+                  <view class="taskItemLImg"><image src="{{abnormalBtn.iconpath?abnormalBtn.iconpath:'../../assets/images/task/default_photo.png'}}"/></view>
+                </view>
+                <view class="taskItemR">
+                  <view class="taskItemFlow">
+                    <view class="taskItemFlowT" bindtap="modifyCharger" data-wpymodifycharger-a="{{item.next_id}}" data-wpymodifycharger-b="{{item.next_name}}">
+                      <view><text>负责人({{item.next_name}})</text></view>
+                      <view><text style="color:#324EBD" wx:if="{{currentUserid===jobInfo.relate_user_id}}">修改</text></view>
+                    </view>
+                    <view><text style="color:#999;">{{item.nickname}}</text></view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="taskItem">
+              <view class="taskItemL">
+                <view class="taskItemLImg"><image src="../../assets/images/task/default_photo.png"/></view>
+              </view>
+              <view class="taskItemR">
+                <view class="taskItemFlow">
+                  <view class="taskItemFlowT" bindtap="batchAddCC">
+                    <view><text>抄送</text></view>
+                    <view><text style="color:#324EBD" wx:if="{{!jobInfo.issue_id && jobInfo.canChangeCC}}">添加</text></view>
+                  </view>
+                  <!-- <view><text>抄送</text></view> -->
+                  <view class="taskcc" style="display;flex;">
+                    <block wx:for="{{jobInfo.assignCCList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+                      <view class="taskccItem" bindtap="delCC" data-wpydelcc-a="{{item}}">
+                        <text class="ccName">{{item.nickname || item.group_name}}</text>
+                        <text class="ccDel" wx:if="{{!jobInfo.issue_id && jobInfo.canChangeCC}}">X</text>
+                      </view>
+                    </block>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 历史和评论 -->
+        <view class="taskList taskTabs">
+          <view class="taskItemTop tabsContainer">
+            <view class="taskItemTitle">
+              <view class="taskItemTopL taskTabsTopL">
+                <view class="taskItem {{isHistoryTab?'active':''}}" bindtap="toggleHistoryTab" data-wpytogglehistorytab-a="{{true}}">
+                  <text>历史</text>
+                </view>
+                <view class="taskItem {{!isHistoryTab?'active':''}}" bindtap="toggleCommentTab" data-wpytogglecommenttab-a="{{false}}">
+                  <text>评论</text>
+                </view>
+              </view>
+              <view class="taskItemTopR" bindtap="hideRecordInfo" data-wpyhiderecordinfo-a="{{!isRecordHidden}}">
+                <text class="iconfont {{!isRecordHidden?'icon-shouqi':'icon-zhankai'}}"/>
+                <text class="blue">{{!isRecordHidden?' 收起':' 展开'}}</text>
+                </view>
+              </view>
+            </view>
+          <view class="tabsContent" hidden="{{isRecordHidden}}">
+            <view class="taskItemInfo" hidden="{{!isHistoryTab}}">
+                <block wx:for="{{taskAuditHistory}}" wx:for-index="index" wx:for-item="item" wx:key="ID">
+                  <view class="taskItem">
+                    <view class="taskItemL">
+                      <view class="taskItemLImg"><image src="{{item.iconpath ? item.iconpath :'../../assets/images/task/default_photo.png'}}"/></view>
+                    </view>
+                    <view class="taskItemR">
+                      <view class="taskItemFlow">
+                        <view>
+                          <text>{{item.performer_name}} </text>
+                          <text class="inline" wx:if="{{item.action===101 && item.log_type===100}}">添加了抄送人：{{item.info}}</text>
+                          <text class="inline" wx:if="{{item.action===102 && item.log_type===100}}">删除了抄送人：{{item.info}}</text>
+                          <text class="inline" wx:if="{{item.action===1 && item.log_type===7}}">将该任务的{{item.infoParse.node_name}}的负责人更改为{{item.infoParse.nickname}}</text>
+                          <text class="inline" wx:if="{{item.action===1 && item.log_type===3}}">将该任务的状态由{{item.infoParse.curname}}变成{{item.infoParse.nextname}}</text>
+                          <text class="inline" wx:if="{{item.action===4}}">{{item.next_status==='新任务'?'提交':'确认'}}了该任务</text>
+                          <text class="inline" wx:if="{{item.action===8}}">驳回了该任务</text>
+                          <text class="inline" wx:if="{{item.action===32}}">关闭了该任务</text>
+                          <text class="inline" wx:if="{{item.action===16}}">将该任务转为需求</text>
+                          <text wx:if="{{item.next_status}}">({{item.next_status}})</text>
+                        </view>
+                        <view><text class="gray24">{{item.CreatedAt}}</text></view>
+                        <view><text>理由：</text><text>{{item.infoParse.reason}}</text></view>
+                          <view>
+                            <a data-href="{{item.infoParse.downloadUrl}}" bindtap="downloadFile" style="color:#009FE0" wx:if="{{!item.infoParse.isImg}}" data-wpydownloadfile-a="{{item.infoParse.downloadUrl}}">{{item.infoParse.file_name}}</a>
+                            <image src="{{item.infoParse.downloadUrl}}" bindtap="previewImage" wx:if="{{item.infoParse.isImg}}" data-wpypreviewimage-a="{{item.infoParse}}" data-wpypreviewimage-b="{{item.infoParse.imgArr}}"/>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                  
+                </block>
+            </view>
+            <view class="taskItemInfo" hidden="{{isHistoryTab}}">
+              <block>
+                <block wx:for="{{taskRemarkList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+                  <view class="taskItem">
+                    <view class="taskItemL">
+                      <view class="taskItemLImg"><image src="{{item.iconpath ? item.iconpath : '../../assets/images/task/default_photo.png'}}"/></view>
+                    </view>
+                    <view class="taskItemR">
+                      <view class="taskItemFlow">
+                        <view><text class="gray24">{{item.created_at}}</text></view>
+                        <view><text>{{item.mark}}</text></view>
+                      </view>
+                    </view>
+                  </view>
+                  <view class="propertyFile" style="padding:0 24rpx 24rpx;box-sizing:border-box;" wx:if="{{item.attachments.length > 0}}">
+                    <block wx:for="{{item.attachments}}" wx:for-index="i" wx:for-item="file" wx:key="i">
+                      <view class="file" wx:if="{{file.isImg}}" bindtap="previewImage" data-wpypreviewimage-a="{{file}}" data-wpypreviewimage-b="{{item.attachments}}">
+                        <!-- <image class="fileImage" src="{{file.downloadUrl}}"></image> -->
+                        <view class="fileText"><text>{{file.file_name}}</text></view>
+                      </view>
+                      <view class="file" wx:else bindtap="downloadFile" data-wpydownloadfile-a="{{file.downloadUrl}}">
+                        <image class="fileImage" src="../../assets/images/task/file.png"/>
+                        <view class="fileText"><a>{{file.file_name}}</a></view>
+                      </view>
+                    </block>
+                  </view>
+                </block>
+              </block>
+              <view class="taskRemark" style="padding-bottom: 24rpx;">
+                <view style="margin-top:16rpx;"><text>附件</text></view>
+                <view class="propertyFile" style="padding: 0">
+                  <block wx:for="{{fileImages}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+                    <view class="file">
+                      <image class="fileImage" src="{{item}}" mode="aspectFill"/>
+                      <view class="fileDelete" bindtap="deleteUploadFile" data-wpydeleteuploadfile-a="{{index}}">
+                        <text class="iconfont icon-cha" style="color:#fff;"/>
+                      </view>
+                    </view>
+                  </block>
+                  <view class="file fileImage fileAdd" wx:if="{{fileImages.length < 1}}">
+                    <image src="../../assets/images/task/add.png" bindtap="uploadDescFile"/>
+                  </view>
+                </view>
+              </view>
+              <view class="taskRemark taskRemarkInput">
+                <view class="taskRemarkText">
+                  <input placeholder="请输入评论" class="remarkInput" cursor-spacing="20rpx" bindinput="bindKeyInput" bindblur="inputBlur" value="{{remarkValue}}" placeholder-class="placeholder"/>
+                </view>
+                <view class="taskRemarkBtn">
+                  <button catchtap="toAt" class="atBtn">@</button>
+                  <button catchtap="toCommitRemark" class="remarkBtn">发表</button>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 节点边操作 -->
+        <view class="taskNodeBtn" wx:if="{{userInfo.userid===jobInfo.relate_user_id}}">
+          <view class="normalBtn" wx:if="{{!normalBtn.shouldHide}}" bindtap="auditTask" data-wpyaudittask-a="{{1}}" data-wpyaudittask-b="{{normalBtn.next_id}}">
+            <button class="dark">{{normalBtn.road_name}}</button>
+          </view>
+          <block wx:for="{{abnormalBtn}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+            <view class="abnormalBtn" wx:if="{{!item.shouldHide}}" bindtap="auditTask" data-wpyaudittask-a="{{2}}" data-wpyaudittask-b="{{item.next_id}}">
+              <button class="light">{{item.road_name}}</button>
+            </view>
+          </block>
+        </view>
+      </view>
+    </scroll-view>
+  </view>

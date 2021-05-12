@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<mp-navigation-bar  title="{{label}}"  background="#fff" back="{{true}}">
+</mp-navigation-bar>
+<view class="inputBox">
+   <input wx:if="{{type==='digit'}}" type="digit" focus="true" bindinput="changeVal" value="{{val}}" placeholder="{{label}}" />
+   <input wx:else type="text" focus="true" bindinput="changeVal" maxlength="{{maxlength}}" value="{{val}}" bindconfirm="save" placeholder="{{label}}" />
+</view>
+<view wx:if="{{changeFlag}}" class="bottomBtn" bindtap="save">保存</view>

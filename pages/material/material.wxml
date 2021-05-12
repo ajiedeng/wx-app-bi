@@ -1,0 +1,10 @@
+<!--pages/space/spaceDetail.wxml-->
+<page-meta>
+    <navigation-bar title="{{entity.name||'空间'}}"/>
+</page-meta>
+<view class="spaceContainer">
+    <view class="item" data-pid="{{item.pid}}" bind:tap="{{item.onClick}}" wx:for="{{items}}">
+        <image class="icon" src="{{item.icon}}"></image>
+        <view class="label">{{item.label}}</view>
+    </view>
+</view>

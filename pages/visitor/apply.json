@@ -1,0 +1,15 @@
+{
+  "usingComponents": {
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "datetime-input": "../../components/datetimeInput/datetimeInput",
+    "duration-picker": "../../components/durations-picker/durations-picker",
+    "enum-input": "../../components/enumInput/enumInput",
+    "van-field": "@vant/weapp/field/index",
+    "van-uploader": "../../components/uploader",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-dialog":"@vant/weapp/dialog/index",
+    "van-button": "@vant/weapp/button/index"
+  },
+  "navigationStyle":"default"
+}

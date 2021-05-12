@@ -1,0 +1,61 @@
+<wxs module="ac">
+</wxs>
+<page-meta>
+    <navigation-bar title="{{title}}"/>
+</page-meta>
+<view class="acPage">
+    <view wx:if="{{allInOne&&devices&&devices.length>1}}">
+        <view class="label">{{allInOne.name}}</view>
+        <view class="features">
+            <view data-did="{{allInOne.did}}" data-key="{{feature.key}}" data-primitive="{{allInOne.primitiveValue}}"
+                  bind:tap="featureClicked" class="feature"
+                  wx:for="{{allInOne.features}}" wx:for-item="feature">
+                <view class="featureName">{{feature.label}}</view>
+                <view class="featureValue">{{feature.value}}</view>
+                <view class="rightArrow"></view>
+            </view>
+        </view>
+    </view>
+
+    <view wx:for="{{devices}}">
+        <view class="label">{{item.name}}</view>
+        <view class="features">
+            <view data-did="{{item.did}}" data-key="{{feature.key}}" data-primitive="{{feature.primitiveValue}}"
+                  bind:tap="featureClicked" class="feature"
+                  wx:for="{{item.features}}" wx:for-item="feature">
+                <view class="featureName">{{feature.label}}</view>
+                <view class="featureValue">{{feature.value}}</view>
+                <view class="rightArrow"></view>
+            </view>
+        </view>
+    </view>
+</view>
+
+
+<van-action-sheet
+        show="{{ showSheet }}"
+        actions="{{ sheetActions }}"
+        bind:close="onSheetClose"
+        bind:select="onSheetSelect"
+        overlay="{{true}}"
+        close-on-click-overlay="true"
+        close-on-click-action="true"
+        cancel-text="取消"
+        bind:cancel="onSheetClose"
+/>
+
+<van-action-sheet
+        show="{{ showSliderPopup }}"
+        bind:close="onSliderPopupClose"
+        overlay="{{true}}"
+        title="{{currentLabel}}"
+        close-on-click-overlay="true"
+        close-on-click-action="true"
+        bind:cancel="{{onSliderPopupClose}}"
+>
+    <view class="slider">
+        <!--        <van-slider bind:change="onSliderChange" max="{{max}}"  min="{{min}}" step="{{step}}"/>-->
+        <slider show-value bindchange="onSliderChange" value="{{sliderValue}}" max="{{max}}" step="{{step}}"
+                min="{{min}}"/>
+    </view>
+</van-action-sheet>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon_dianying</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="120.297975%" y1="0%" x2="-51.9090814%" y2="174.519309%" id="linearGradient-1">
+            <stop stop-color="#007FFF" offset="0%"></stop>
+            <stop stop-color="#6DB0FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon绘制" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="备忘录" transform="translate(-32.000000, -450.000000)">
+            <g id="icon_dianying" transform="translate(32.000000, 450.000000)">
+                <circle id="蒙版" fill="url(#linearGradient-1)" cx="22" cy="22" r="22"></circle>
+                <g id="Video-camera" transform="translate(11.000000, 15.000000)" fill="#FFFFFF">
+                    <rect id="Combined-Shape" x="0" y="0" width="14.95" height="13.8" rx="2"></rect>
+                    <path d="M23,2.4142119 L23,11.3857848 C23,11.9380695 22.5522847,12.3857848 22,12.3857848 C21.7347833,12.3857848 21.4804293,12.2804278 21.2928929,12.0928912 L16.8071064,7.60710041 C16.4165823,7.21657592 16.4165826,6.58341094 16.8071071,6.19288684 L21.2928936,1.70710477 C21.683418,1.31658067 22.316583,1.31658098 22.7071071,1.70710546 C22.8946433,1.89464181 23,2.14899558 23,2.4142119 Z" id="Path-2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

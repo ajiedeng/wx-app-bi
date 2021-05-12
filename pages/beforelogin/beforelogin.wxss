@@ -1,0 +1,35 @@
+/* pages/beforelogin/beforelogin.wxss */
+.beforlogin{
+  width: 100%;
+  height: 100%;
+  padding-top: 90px;
+  background-color: #fff;
+}
+.beforlogin .loginimage{
+  width: 100%;
+  height: 344px;
+}
+.buttons{
+  position: absolute;
+  width: 100%;
+  bottom: 40px;
+  padding: 0px 30px;
+  box-sizing: border-box;
+}
+.fastlogin{
+  display: flex;
+  align-items: center;
+  height: 40px;
+  justify-content: center;
+  background-color: #19B94F;
+  color: #FFFFFF;
+}
+.fastlogin image{
+  margin-right: 7px;
+}
+.countlogin {
+  margin-top: 10px;
+  height: 40px;
+  background-color: #e6e6e628;
+  color: #4D4D4D;
+}

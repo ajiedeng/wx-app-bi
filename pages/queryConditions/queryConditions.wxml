@@ -1,0 +1,90 @@
+<!--filterCondition.wxml-->
+
+<wxs module="filter">
+	module.exports.getLabels = function (vtConfigColumns) {
+		return vtConfigColumns ? vtConfigColumns.map(function (item) {
+			return item.label
+		}) : [];
+	};
+	module.exports.formatDate = function (date) {
+		return getDate(date).toLocaleDateString().split('/').join('.')
+	}
+
+</wxs>
+
+<view class="indexPage">
+	<mp-navigation-bar color="#000" background="#fff" title="筛选" back="{{true}}">
+	</mp-navigation-bar>
+
+	<van-cell-group custom-class="cellBox">
+		<van-cell title="{{curCondition.label||'筛选选项'}}" value="{{curCondition.label?'':'请选择'}}" is-link
+			bind:click="toggleLabelPopup" />
+
+		<!-- 枚举项多选，enum -->
+		<van-cell wx:if="{{curCondition.type==='enum'}}" title="{{curCondition.label+'选项'}}"
+			value="{{curCondition.enum[enumSelectedVal]||'请选择'}}" is-link bind:click="toggleCheckboxPopup" />
+		<!-- 枚举项多选，enum -->
+
+		<!-- 时间选择，timestamp -->
+		<van-cell wx:if="{{curCondition.type==='timestamp'}}" title="{{'开始日期'}}" data-type="start"
+			value="{{filter.formatDate(startDate)}}" is-link bind:click="toggleDatePickerPopup" />
+		<van-cell wx:if="{{curCondition.type==='timestamp'}}" title="{{'结束日期'}}" data-type="end"
+			value="{{filter.formatDate(endDate)}}" is-link bind:click="toggleDatePickerPopup" />
+		<!-- 时间选择，timestamp -->
+
+	</van-cell-group>
+
+	<!-- 精确文本搜索，string -->
+	<view wx:if="{{curCondition.type==='string'||curCondition.type==='int'||curCondition.type==='float'}}">
+		<view class="typeBoxTitle">搜索关键字</view>
+		<van-field wx:if="{{curCondition.spec==='singleline'}}" value="{{ curCondition.value }}" placeholder="请输入关键字"
+			clearable border="{{ false }}" bind:change="onInputChange" />
+		<van-field wx:elif="{{curCondition.spec==='multilines'}}" type="textarea" autosize="{{true}}"
+			value="{{ curCondition.value }}" placeholder="请输入关键字" clearable border="{{ false }}"
+			bind:change="onInputChange" />
+		<van-field wx:else value="{{ curCondition.value }}" placeholder="请输入关键字" clearable border="{{ false }}"
+			bind:change="onInputChange" />
+	</view>
+	<!-- 精确文本搜索，string -->
+
+
+
+
+
+	<van-button custom-class="confirmBtn" type="default" size="large" color="#007FFF" plain bind:click="onAllConfirm">确定
+	</van-button>
+
+	<!-- 筛选条件选择 -->
+	<van-popup show="{{ popupLabelShow }}" position="bottom" bind:close="toggleLabelPopup">
+		<van-picker show-toolbar title="筛选" columns="{{ filter.getLabels(vtConfigColumns) }}" bind:cancel="toggleLabelPopup"
+			bind:confirm="onPickerConfirm" />
+	</van-popup>
+	<!-- 筛选条件选择 -->
+
+	<!-- enum类型条件选项 -->
+	<van-popup show="{{ popupCheckboxShow }}" closeable position="bottom" bind:close="toggleCheckboxPopup">
+		<view class="popupTitle">{{curCondition.label}}</view>
+		<!-- <van-checkbox-group value="{{ enumSelectedNames }}" bind:change="oncheckboxChange"> -->
+		<van-cell-group custom-class="cellGroupBox">
+			<van-cell wx:for="{{ enumNames }}" wx:key="index" title="{{ item.val }}" value-class="value-class" clickable
+				data-index="{{ item.key }}" bind:click="checkboxToggle">
+				<van-checkbox catch:tap="noop" class="checkboxes-{{ item.key }}" value="{{item.key===enumSelectedVal}}"
+					name="{{ item.val }}" />
+			</van-cell>
+		</van-cell-group>
+		<!-- </van-checkbox-group> -->
+	</van-popup>
+	<!-- enum类型条件选项 -->
+
+	<!-- 时间选择，timestamp -->
+	<van-popup show="{{ startDatePickerShow }}" data-type="closeAll" position="bottom" bind:close="toggleDatePickerPopup">
+		<van-datetime-picker type="date" data-type="start" class="startPicker" value="{{ startDate }}" title="开始日期"
+			bind:cancel="toggleDatePickerPopup" bind:confirm="onDatePickerConfirm" bind:change="onDatePickerChange" />
+	</van-popup>
+	<van-popup show="{{ endDatePickerShow }}" data-type="closeAll" position="bottom" bind:close="toggleDatePickerPopup">
+		<van-datetime-picker type="date" data-type="end" class="endPicker" value="{{ endDate }}" title="结束日期"
+			bind:cancel="toggleDatePickerPopup" bind:confirm="onDatePickerConfirm" />
+	</van-popup>
+	<!-- 时间选择，timestamp -->
+
+</view>

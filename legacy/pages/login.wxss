@@ -1,0 +1,38 @@
+@import "./../components/topBar.wxss";
+.container .topSection{height:136rpx;background:#fff}.container .topSection .topCommon{margin-top:68rpx}.container .topSection .topTipText{color:#000 !important}.container .topSection .icon-jiantouarrow487{color:#000 !important}.container .topSection .topHead{color:#000 !important}
+#loginForm .section {
+  display: flex;
+  height: 120rpx;
+  line-height: 120rpx;
+  font-size: 28rpx;
+}
+#loginForm .section input {
+  padding-left: 30rpx;
+  height: 100%;
+}
+#loginForm .section.userInfo {
+  background: #fff;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+#loginForm .section.username {
+  border-bottom: 1px solid #ccc;
+}
+#loginForm .section.loginTip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 240rpx;
+}
+#loginForm .section.loginTip .section__title {
+  font-size: 32rpx;
+  color: #999;
+}
+#loginForm .loginBtn {
+  padding: 0 48rpx;
+}
+#loginForm .loginBtn button {
+  background: #324ebd;
+  color: #fff;
+  font-size: 36rpx;
+}

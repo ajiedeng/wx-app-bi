@@ -1,0 +1,32 @@
+<!--pages/meetingMem/meetingMem.wxml-->
+<wxs module="m1">
+function getColor(char){
+  // var charCode = char.charCodeAt('0').toString(16)
+  // while(charCode.length<6){
+  //   charCode+=0
+  // }
+  return '#248EFF'
+}
+
+module.exports.getColor = getColor;
+</wxs>
+<mp-navigation-bar loading="{{loading}}" show="{{show}}" title="{{meetingMember}}" animated="{{animated}}" color="{{color}}" background="{{background}}" back="{{true}}">
+</mp-navigation-bar>
+<view class="tab">
+	<view bindtap="changeMember" data-status="0">
+		<text class="{{currentStatus === 0 ? 'selected' : ''}}">未响应 {{ member.noRes }}</text>
+	</view>
+	<view bindtap="changeMember" data-status="1">
+		<text class="{{currentStatus === 1 ? 'selected' : ''}}">参加 {{ member.agree }}</text>
+	</view>
+	<view bindtap="changeMember" data-status="2">
+		<text class="{{currentStatus === 2 ? 'selected' : ''}}">不参加 {{ member.disAgree }}</text>
+	</view>
+</view>
+<view class="content" id="content" style="height: calc(100% - {{contentHeight}}px)">
+	<view class="memberInfo" wx:for="{{memberList}}" wx:for-item="item" wx:key="*this">
+		<view class="avatar" style="background:{{m1.getColor(item['username'])}};font-size: 20px;color:white;">{{item['username'][0]}}</view>
+		<text>{{item.username}}</text>
+		<text >{{item.reason ? '(' + item.reason + ')' : item.reason}}</text>
+	</view>
+</view>

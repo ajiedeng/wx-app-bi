@@ -1,0 +1,237 @@
+<wxs module="cast">
+    function formatSeconds(value) {
+        var time = parseInt(value);
+        var minute= 0;
+        var second= 0;
+
+        minute= time/60|0;
+        second = parseInt(time%60);
+
+        return minute+":"+second;
+    }
+
+    module.exports.formatSeconds = formatSeconds;
+</wxs>
+
+
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+        <!-- occupy-dialog -->
+<view class="occupyByOther" wx:if="{{occupyByOther }}">
+    <view>
+        <image src="./image/pic_default_empty.png"></image>
+        <text>已被{{occupyByOther}}占用</text>
+        <br />
+        <p bindtap="onControlScreen">我要投屏</p>
+    </view>
+</view>
+
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml" wx:if="{{!occupyByOther}}">
+    <view class="page__bd">
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+
+            <view class="weui-cells__title">设备</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_switch" bind:tap="exit">
+                    <view class="weui-cell__bd">{{deviceName}}</view>
+                    <view class="weui-cell__ft">
+                        退出
+                    </view>
+                </view>
+            </view>
+
+            <mp-cells title="连接成功">
+                <mp-cell prop="type" title="文件类型" ext-class="" bind:tap="showTypesSheet">
+                    <input bindinput="formInputChange" data-field="qq" disabled class="weui-input"
+                           value="{{ALL_TYPES[type].label}}" placeholder="请选择文件类型"/>
+                    <mp-icon slot="footer" icon="arrow" color="#999999" size="{{15}}"></mp-icon>
+                </mp-cell>
+                <mp-cell wx:if="{{type !== DASHBOARD}}" prop="mobile" title="投屏文件" bind:tap="chooseFile">
+                    <input bindinput="formInputChange" data-field="mobile" disabled class="weui-input"
+                           value="{{fileName}}" placeholder="请选择文件"/>
+                    <mp-icon slot="footer" icon="arrow" color="#999999" size="{{15}}"></mp-icon>
+                </mp-cell>
+                <mp-cell prop="vcode" title="使用时间">
+                    <input disabled value="{{ALL_OCCUPY_TIME[occupyTime]}}" bindinput="formInputChange"
+                           bind:tap="chooseOccupyTime" data-field="vcode" class="weui-input" placeholder="请选择使用时间"/>
+                    <mp-icon slot="footer" icon="arrow" color="#999999" size="{{15}}"></mp-icon>
+                </mp-cell>
+                <!--                <view class="weui-cells weui-cells_after-title">-->
+                <!--                    <view class="weui-cell weui-cell_switch">-->
+                <!--                        <view class="weui-cell__bd">横屏</view>-->
+                <!--                        <view class="weui-cell__ft">-->
+                <!--                            <switch checked="{{horizontal}}" bindchange="orientationChange"/>-->
+                <!--                        </view>-->
+                <!--                    </view>-->
+                <!--                </view>-->
+            </mp-cells>
+        </mp-form>
+    </view>
+
+
+</view>
+
+
+<view class="bottomPanel">
+    <!--ready -->
+    <view class="playContainer" wx:if="{{showReady}}">
+        <view class="videShow" bindtap="readyClicked">
+            <view class="videIcon">
+                <image src="./image/icon_touping.png"></image>
+                <text>投屏</text>
+            </view>
+        </view>
+    </view>
+    <block wx:if="{{!showReady&&casting}}">
+        <!--type PPT -->
+        <view class="playContainer" wx:if="{{type === PPT}}">
+            <view class="btnIcon">
+                <view class="icon" data-operation="prev" bind:tap="control">
+                    <mp-icon  icon="arrow" color="#333" size="{{15}}"></mp-icon>
+                </view>
+                <text>上一页</text>
+            </view>
+            <view class="btnIcon">
+                <view class="icon" data-operation="next"  bind:tap="control">
+                    <mp-icon icon="arrow" color="#333" size="{{15}}"></mp-icon>
+                </view>
+                <text>下一页</text>
+            </view>
+        </view>
+
+        <!--video playing -->
+        <view class="playContainer" wx:elif="{{type === VIDEO || type === MUSIC}}">
+            <view class="btnIcon" >
+                <view class="icon" data-operation="prev"  bind:tap="control">
+                    <van-icon class-prefix="my-icon" name="extra" />
+                </view>
+                <text>快退</text>
+            </view>
+            <view class="btnIcon" >
+                <view class="icon"  data-operation="play" bind:tap="control">
+                    <van-icon name="{{vtControl === PAUSE?'play':'pause'}}" color="#333" size="{{25}}"/>
+                </view>
+                <text>{{vtControl === PAUSE?'播放':'暂停'}}</text>
+            </view>
+            <view class="btnIcon">
+                <view class="icon" data-operation="next" bind:tap="control">
+                    <van-icon class-prefix="my-icon fast" name="extra" />
+                </view>
+                <text>快进</text>
+            </view>
+        </view>
+        <!--type image  -->
+        <view class="playContainer image" wx:elif="{{type===ZIP}}">
+            <van-tabs active="{{playTime?1:0}}" type="card" color="#D9D9D9" title-active-color="#0E94FF"
+                background="#fff" title-inactive-color="#666666" line-width="196" bind:change="tabChange" custom-class="title-defind" tab-active-class="tab-css">
+                <van-tab title="手动" >
+                    <view class="tabContainer">
+                        <view class="btnIcon">
+                            <view class="icon">
+                                <mp-icon data-operation="prev" bind:tap="control" icon="arrow" color="#333"
+                                         size="{{15}}"></mp-icon>
+                            </view>
+                            <text>上一张</text>
+                        </view>
+                        <view class="btnIcon">
+                            <view class="icon">
+                                <mp-icon data-operation="next" bind:tap="control" icon="arrow" color="#333"
+                                         size="{{15}}"></mp-icon>
+                            </view>
+                            <text>下一张</text>
+                        </view>
+                    </view>
+                </van-tab>
+                <van-tab title="自动">
+                    <view class="tabContainer">
+                        <view class="btnIcon">
+                            <view class="icon" bind:tap="showPlayTimePicker" >
+                                <van-icon class-prefix="icon-time" name="play"/>
+                            </view>
+                            <text>播放时间</text>
+                        </view>
+                        <view class="btnIcon">
+                            <view class="icon" data-operation="play" bind:tap="control">
+                                <van-icon class-prefix="{{vtControl === PAUSE?'icon-paly':'icon-pause'}}"  />
+                            </view>
+                            <text>{{vtControl === PAUSE?'播放':'暂停'}}</text>
+                        </view>
+                        <view class="btnIcon">
+                            <view class="icon" bind:tap="showSwitchingEffectPicker" >
+                                <van-icon class-prefix="icon-change" name="change"
+                                         />
+                            </view>
+                            <text>切换效果</text>
+                        </view>
+                    </view>
+                </van-tab>
+            </van-tabs>
+
+        </view>
+    </block>
+
+    <view class="overScreen" bindtap="stopCast" wx:if="{{( casting || (vtControl !== PAUSE && url && pwr === 1)) && !showReady}}">
+        <text>结束投屏</text>
+    </view>
+</view>
+        <!-- 切换效果弹出框 -->
+<van-popup wx:if="{{showPlayTimePicker}}" show="{{ showPlayTimePicker }}" position="bottom" custom-style="height: 45%" bind:close="onPlayTimePickerCancel">
+    <van-datetime-picker type="time" title="播放时间" value="{{cast.formatSeconds(playTime) }}" min-hour="{{ 0 }}"
+                         max-hour="{{ 20 }}" formatter="{{ formatter }}" bind:confirm="onPlayTimePickerCloseConfirm"
+                         bind:cancel="onPlayTimePickerCancel"/>
+</van-popup>
+
+<van-popup wx:if="{{showSwitchingEffectPicker}}" show="{{ showSwitchingEffectPicker }}" position="bottom" custom-style="height: 45%" bind:close="onSwitchingEffectPickerCancel">
+    <van-picker columns="{{ switchingEffects }}" default-index="{{switchingEffect}}" show-toolbar title="切换效果" bind:cancel="onSwitchingEffectPickerCancel"
+                bind:confirm="onSwitchingEffectPickerConfirm"/>
+</van-popup>
+
+<!--<van-popup show="{{ showPlayTimePicker }}" position="bottom" custom-style="height: 45%" bind:close="onPlayTimePickerClose">-->
+
+<!--</van-popup>-->
+
+        <!-- 播放时间弹出框 -->
+<van-action-sheet show="{{ showSheet }}" actions="{{ sheetActions }}" bind:close="onSheetClose"
+                  bind:select="onSheetSelect" overlay="{{true}}" close-on-click-overlay="true"
+                  close-on-click-action="true" cancel-text="取消" bind:cancel="onSheetClose"/>
+
+
+<van-action-sheet
+        show="{{ showSheet }}"
+        actions="{{ sheetActions }}"
+        bind:close="onSheetClose"
+        bind:select="onSheetSelect"
+        overlay="{{true}}"
+        close-on-click-overlay="true"
+        close-on-click-action="true"
+        cancel-text="取消"
+        bind:cancel="onSheetClose"
+/>
+
+<van-dialog
+        use-slot
+        async-close
+        title="网页展示"
+        show="{{ showInputDialog }}"
+        show-cancel-button
+        bind:confirm='onInputDialogConfirm'
+        bind:cancel='onInputDialogCancel'
+>
+    <!--    <input-->
+    <!--           bindinput="formChange"-->
+    <!--           class="weui-input valueText"-->
+    <!--           value="{{}}"-->
+    <!--           placeholder="请输入{{formInfo[key].label}}"-->
+    <!--           type="{{addVt.getInputType(formInfo[key].type)}}"-->
+    <!--           maxlength="{{formInfo[key].maxLength||-1}}"-->
+    <!--           disabled="{{!formInfo[key].editable}}"-->
+    <!--    />-->
+    <van-field
+            size="'large"
+            model:value="{{ website }}"
+            placeholder="请输入网址"
+            border="{{ true }}"
+            focus="{{showInputDialog}}"
+            clearable
+            custom-style=""
+    />
+</van-dialog>

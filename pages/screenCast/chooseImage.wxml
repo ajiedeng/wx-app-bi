@@ -1,0 +1,14 @@
+<view class="page">
+    <van-uploader
+            file-list="{{fileList}}"
+            max-count="10"
+            deletable="true"
+            accept="image"
+            multiple
+            bind:after-read="afterRead"
+            bind:delete="imgDelete"
+            bind:click-preview="clickPreview"
+    />
+
+    <button class="save" bind:tap="save" type ='primary' disabled="{{fileList ==null || fileList.length ===0}}">确定</button>
+</view>

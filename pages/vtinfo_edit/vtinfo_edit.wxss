@@ -1,0 +1,26 @@
+/**timecard.wxss**/
+page{
+  height: 100%;
+  overflow: hidden;
+}
+.inputBox{
+  margin-top: 24rpx;
+  background-color: #fff;
+  height: 120rpx;
+  width: 100%;
+}
+.inputBox input{
+  height: 100%;
+  padding-left: 32rpx;
+}
+.bottomBtn{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 124rpx;
+  text-align: center;
+  line-height: 124rpx;
+  font-size: 32rpx;
+  color: #007FFF;
+  background-color: #fff;
+}

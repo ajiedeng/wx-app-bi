@@ -1,0 +1,25 @@
+<!--pages/vtinfo/vtinfo.wxml-->
+<mp-navigation-bar title="{{title}}" background="#fff">
+</mp-navigation-bar>
+<view class=".vtinfo">
+
+	<!-- <view class="item">
+  <view class="label">姓名古北智能制造仓库古北智能制造仓库古北智能制造仓库古北智能制造仓库</view>
+  <view class="text">古北智能制造仓库古北智能制造仓库古北古北智能制造仓库古北智能制造仓库古北智能制造仓库智能制造仓库</view>
+</view> -->
+
+	<view wx:key="column" class="item" wx:for="{{items}}">
+		<view class="label">{{item.label}}</view>
+		<picker data-column="{{item.column}}" class="text" wx:if="{{(item.type === 'enum' || item.type === 'int' ) && item.editable}}" bindchange="bindPickerChange" value="{{item.index}}" range-key="name" range="{{item.range}}">
+			<view>
+				{{item.range[item.index].name}}
+			</view>
+		</picker>
+		<view data-column="{{item.column}}" class="text" wx:else bindtap="{{item.editable?'edit':''}}">{{item.text}}</view>
+
+		<view class="rightArrow" wx:if="{{item.editable}}"></view>
+	</view>
+
+
+
+</view>

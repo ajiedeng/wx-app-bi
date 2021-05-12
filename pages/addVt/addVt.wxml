@@ -1,0 +1,134 @@
+<wxs module="addVt">
+    function getInputType(type) {
+        if (type === 'int') {
+            return 'number'
+        } else if (type === 'float') {
+            return 'digit'
+        } else {
+            return 'text'
+        }
+    }
+
+    module.exports.getInputType = getInputType;
+</wxs>
+
+<page-meta>
+    <navigation-bar title="{{vtConfig.name}}"/>
+</page-meta>
+
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+
+<view class="addVtPage">
+    <mp-form id="addVtForm" rules="{{rules}}" models="{{formData}}">
+        <mp-cells>
+
+            <block wx:for="{{keys}}" wx:for-item="key">
+                <mp-cell show-error prop="{{key}}" title="{{formInfo[key].label}}" ext-class="">
+
+                    <van-uploader
+                            wx:if="{{formInfo[key].spec==='imglink'||formInfo[key].spec==='link'}}"
+                            data-field="{{key}}"
+                            file-list="{{formData[key]}}"
+                            max-count="1"
+                            deletable="true"
+                            accept="{{formInfo[key].spec==='link'?'all':'image'}}"
+                            bind:after-read="afterRead"
+                            bind:delete="imgDelete"
+                            bind:click-preview="clickPreview"
+                            disabled="{{!formInfo[key].editable}}"
+                    />
+
+
+                    <input wx:elif="{{formInfo[key].type === 'string' || formInfo[key].type==='float'}}"
+                           bindinput="formChange"
+                           data-field="{{key}}"
+                           class="weui-input valueText"
+                           style="{{key==='did'?'font-size:25rpx':null}}"
+                           value="{{formData[key]}}"
+                           placeholder="请输入{{formInfo[key].label}}"
+                           type="{{addVt.getInputType(formInfo[key].type)}}"
+                           maxlength="{{formInfo[key].maxLength||-1}}"
+                           disabled="{{!formInfo[key].editable}}"
+                    />
+
+                    <picker wx:elif="{{formInfo[key].type === 'enum' || formInfo[key].type === 'int'}}"
+                            range="{{formInfo[key].range}}"
+                            data-field="{{key}}"
+                            mode="selector"
+                            range-key="name"
+                            value="{{formData[key]}}"
+                            bindchange="formChange"
+                            disabled="{{!formInfo[key].editable}}">
+                        <view class="weui-input valueText" wx:if="{{formInfo[key].type === 'enum'}}">
+                            {{formData[key]==null?'请选择':formInfo[key].range[formData[key]].name}}
+                        </view>
+                        <!--todo 目前保证显示是正常的，但编辑有问题，根本原因是min max返回有问题-->
+                        <view class="weui-input valueText" wx:if="{{formInfo[key].type === 'int'}}">
+                            {{currentEntity[key]==null?'请选择':currentEntity[key]}}
+                        </view>
+                    </picker>
+
+
+
+                    <view class="weui-input valueText"
+                          wx:elif="{{formInfo[key].type === 'timestamp' || formInfo[key].type === 'time' || formInfo[key].type === 'date'}}"
+                          bind:tap="{{formInfo[key].editable ? 'showDatetimePicker' : ''}}"
+                          data-field="{{key}}">
+                        {{formData[key]==null?'请选择':formData[key]}}
+                    </view>
+
+                    <view class="weui-input valueText"
+                          wx:elif="{{formInfo[key].type === 'meetingperiod'}}"
+                          bind:tap="{{formInfo[key].editable ? 'showPeriodPickerPicker' : ''}}"
+                          data-field="{{key}}">
+                        {{formData[key]==null?'请选择':formData[key]}}
+                    </view>
+
+                    <view wx:elif="{{formInfo[key].type === 'ref' || formInfo[key].type === 'relateusers'}}" data-field="{{key}}" data-multiple="{{formInfo[key].type === 'relateusers'}}"
+                          data-pid="{{formInfo[key].pid}}" bind:tap="{{formInfo[key].editable?'refClicked':null}}"
+                          class="weui-input valueText">{{formData[key]}}
+                    </view>
+
+<!--                    <view class="rightArrow" wx:if="{{formInfo[key].editable}}"></view>-->
+                    <mp-icon slot="footer" icon="arrow" wx:if="{{formInfo[key].editable}}" color="#999999" size="{{15}}"></mp-icon>
+
+                </mp-cell>
+
+            </block>
+
+        </mp-cells>
+    </mp-form>
+
+    <view class="weui-btn-area">
+        <button class="weui-btn" wx:if="{{(!isEdit||modified)&&vtConfig}}" type="primary" bindtap="submitForm">确定
+        </button>
+    </view>
+
+    <van-popup
+            show="{{showDatetimePicker}}"
+            bind:close="onClose"
+            position="bottom">
+        <van-datetime-picker
+                title="请选择"
+                type="{{formInfo[currentKey].pickerType}}"
+                min-date ="{{formInfo[currentKey].min}}"
+                bind:confirm = "onPickerConfirm"
+                bind:cancel = "onPickerCancel"
+                value="{{formInfo[currentKey].currentDate}}"
+        />
+    </van-popup>
+
+
+    <period-picker
+            show="{{showPeriodPickerPicker}}"
+            show-toolbar
+            entity = "{{currentEntity}}"
+            visibleItem-count="{{8}}"
+            title="请选择时间段"
+            bind:confirm = "noop"
+            bind:cancel = "onPeriodPickerCancel"
+            bind:update = "onPeriodPickerUpdate"
+    />
+</view>
+
+

@@ -1,0 +1,51 @@
+
+  <view class="container containerBox">
+    
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$topLogin$isBackShow}}" class="topCommon topBack" bindtap="$topLogin$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+        <text>登录</text>
+      </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <view id="loginForm">
+      <view class="section username userInfo">
+        <view class="inputL" style="width:12%;">
+          <text class="section__title">账号</text>
+        </view>
+        <view class="inputR" style="width:88%;">
+          <input name="input" id="username" maxlength="{{30}}" type="text" placeholder="请输入手机号/邮箱" bindinput="bindBlur"/>
+        </view>
+      </view>
+      <view class="section password userInfo">
+        <view class="inputL" style="width:12%;">
+          <text class="section__title">密码</text>
+        </view>
+        <view class="inputR" style="width:88%;">
+          <input name="input" type="text" id="password" maxlength="{{30}}" password placeholder="请输入密码" bindinput="bindBlur"/>
+        </view>
+      </view>
+      <view class="section loginTip">
+        <text class="section__title">请使用业务系统注册账号登录</text>
+      </view>
+      <view class="btn-area loginBtn">
+        <button bindtap="toLogin">登录</button>
+      </view>
+    </view>
+    <view class="verBottom">
+      <text class="gray24">{{'V'+ version}}</text>
+    </view>
+  </view>

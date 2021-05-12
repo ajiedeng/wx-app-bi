@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mp-loading": "/miniprogram_npm/weui-miniprogram/loading/loading",
+    "mp-navigation-bar": "/miniprogram_npm/weui-miniprogram/navigation-bar/navigation-bar"
+  },
+  "navigationStyle": "custom",
+  "disableScroll":true
+}

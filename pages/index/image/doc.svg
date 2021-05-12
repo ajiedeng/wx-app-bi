@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>icon_wendang</title>
+    <desc>Created with Sketch.</desc>
+    <g id="新增icon（0723）✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon汇总" transform="translate(-36.000000, -713.000000)">
+            <g id="编组-10" transform="translate(36.000000, 713.000000)">
+                <rect id="矩形备份-3" fill="#D8D8D8" opacity="0" x="0" y="0" width="26" height="26"></rect>
+                <g id="编组-9" transform="translate(1.000000, 3.000000)">
+                    <rect id="矩形备份-9" fill="#007FFF" x="6" y="7" width="10" height="2" rx="1"></rect>
+                    <rect id="矩形备份-11" fill="#007FFF" x="6" y="12" width="11" height="2" rx="1"></rect>
+                    <g id="folder_outlined" fill-rule="nonzero" stroke="#111111" stroke-width="2">
+                        <path d="M2.39985933,0.99999999 C2.01340068,1 1.66340068,1.15670034 1.41005051,1.41005051 C1.15670034,1.66340068 1,2.01340068 1,2.4 L1,16.8 C1,17.1865993 1.15670034,17.5365993 1.41005051,17.7899495 C1.66340068,18.0432997 2.01340068,18.2 2.4,18.2 L21.6,18.2 C21.9865993,18.2 22.3365993,18.0432997 22.5899495,17.7899495 C22.8432997,17.5365993 23,17.1865993 23,16.8 L23,4.8 C23,4.41340068 22.8432997,4.06340068 22.5899495,3.81005051 C22.3365993,3.55670034 21.9865993,3.4 21.6,3.4 L14.892,3.4 C14.3106417,3.39756097 13.7575628,3.1684283 13.3477894,2.76199114 L11.6408932,1.05510678 C11.4360966,0.851989298 10.9148062,1.00119782 2.39985933,0.99999999 Z" id="Path"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

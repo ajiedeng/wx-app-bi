@@ -1,0 +1,84 @@
+
+<view class="container containerBox">
+  
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$topMeetingUser$isBackShow}}" class="topCommon topBack" bindtap="$topMeetingUser$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+      <text class="title">与会人员</text>
+    </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="topSearch" id="topMeetingSearch" style="box-sizing: border-box;">
+    <view class="search">
+      <text class="iconfont icon-sousuo gray28 searchText"  wx:if="{{!isFocus}}"/>
+      <input placeholder="搜索" class="bg pd24" bindtap="searchFocus" value="{{inputSearch}}" bindinput="searchChange" placeholder-class="{{isFocus?'':'placeholderCenter'}}"/>
+    </view>
+  </view>
+  <scroll-view scroll-x class="tabsXScroll" id="tabsUserXScroll">
+    <view class="tabsContainer" style="justify-content:space-between;">
+      <view style="display:flex;">
+          <view class="tabsItem active" style="box-sizing:border-box;">
+            <text>总览</text>
+          </view>
+      </view>
+      <view bindtap="multiConfirm" class="multiDel">确定</view>
+    </view>
+  </scroll-view>
+  <scroll-view scroll-y style="height: {{height?height+'px':'974rpx'}}">
+    <scroll-view scroll-y class="tabsYScroll" style="height: {{height?height+'px':'974rpx'}}" scroll-into-view="{{scrollTopId}}">
+      
+  <block wx:if="{{isSkeleton}}">
+    <block wx:for="{{$userSkeleton$chargers}}" wx:for-index="$userSkeleton$key" wx:for-item="$userSkeleton$item" wx:key="$userSkeleton$key">
+      <view id="{{$userSkeleton$key}}" class="tabsChargerTitle"><text>{{$userSkeleton$key}}</text></view>
+      <block wx:for="{{$userSkeleton$item}}" wx:for-index="$userSkeleton$index" wx:for-item="$userSkeleton$subItem" wx:key="$userSkeleton$index">
+        <view class="tabsCharger">
+          <label class="ccLabel">
+            <checkbox style="transform: scale(0.6,0.6);"/>
+          </label>
+          <view class="tabsChargerImage"><image/></view>
+          <view class="tabsChargerName"><text style="background:#EFEFF4;color:rgba(0,0,0,0)">{{$userSkeleton$subItem.nickname}}</text></view>
+        </view>
+      </block>
+    </block>
+  </block>
+
+      <block wx:for="{{meetingUsers}}" wx:for-index="key" wx:for-item="item" wx:key="key">
+        <view id="{{key}}" class="tabsChargerTitle"><text>{{key}}</text></view>
+        <block wx:for="{{item}}" wx:for-index="index" wx:for-item="subItem" wx:key="index">
+          <view class="tabsCharger" bindtap="bindCharger" data-wpybindcharger-a="{{subItem}}" data-wpybindcharger-b="{{key}}" data-wpybindcharger-c="{{index}}">
+            <label class="ccLabel">
+              <checkbox style="transform: scale(0.6,0.6);" value="{{subItem.userid}}" checked="{{subItem.checked}}"/>
+            </label>
+            <view class="tabsChargerImage">
+              <image src="data:image/png;base64,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"/>
+            </view>
+            <view class="tabsChargerName"><text>{{subItem.name}}</text></view>
+          </view>
+        </block>
+      </block>
+    </scroll-view>
+    <!--用户选择列表-->
+    <view class="scrollList" bindtouchstart="chStart" bindtouchend="chEnd" catchtouchmove="chMove" style="background: rgba(125,125,125,{{trans}});padding-top:10px;" id="charMeetingLine">
+      <block wx:for="{{meetingUsers}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+        <view id="{{index}}" class="scrollListChi" style="line-height:{{lineHeight}}px;height:{{lineHeight}}px;font-size:{{lineHeight/1.7}}px;" bindtouchstart="getWords" bindtouchend="setWords">{{index}}</view>
+      </block>
+    </view>
+      <!--选择显示-->
+    <view hidden="{{hidden}}" class="showWords" style="top:{{top}}px">
+      {{showWords}}
+    </view>
+  </scroll-view>
+</view>

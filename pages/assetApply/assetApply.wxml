@@ -1,0 +1,70 @@
+<!--pages/assetApply/assetApply.wxml-->
+
+<view class="vtinfo">
+    <view class="item" wx:for="{{infoItems}}">
+        <view class="label">{{item.label}}</view>
+        <view class="text">
+            {{assetEntity[item.key]}}
+        </view>
+        <view class="rightArrow" wx:if="{{item.editable}}"></view>
+    </view>
+</view>
+<view wx:if="{{!record}}" class="vtinfo .apply">
+    <view class="item" bind:tap="chooseSpace">
+        <view class="label">选择空间</view>
+        <view class="text">
+            {{spaceName?spaceName:''}}
+        </view>
+        <view class="rightArrow"></view>
+    </view>
+
+    <view class="item" wx:if="{{false}}">
+        <view class="label">领用数量</view>
+        <input bindinput="bindKeyInput" class="text" value="{{applyNumber}}" type="number"></input>
+        <view class="rightArrow" wx:if="{{item.editable}}"></view>
+    </view>
+</view>
+<view class="vtinfo" wx:if="{{applyUser.name}}">
+    <view class="item" >
+        <view class="label">领用人</view>
+        <input bindtap="bindApplyUser" class="text" value="{{applyUser.name}}" placeholder="请选择领用人" type="text"></input>
+        <view class="rightArrow" wx:if="{{item.editable}}"></view>
+    </view>
+</view>
+<view wx:elif="{{record.taskstatus === 0}}" class="vtinfo .apply">
+<!--    <view class="item">-->
+<!--        <view class="label">审批人</view>-->
+<!--        <view class="text">-->
+<!--            {{record['applicant.name']}}-->
+<!--        </view>-->
+<!--    </view>-->
+
+    <view class="item">
+        <view class="label">审批状态</view>
+        <view class="text highLight">
+            {{'审批中'}}
+        </view>
+    </view>
+
+    <view class="item">
+        <view class="label">领用数量</view>
+        <view class="text">
+            {{record.appliancecount}}
+        </view>
+    </view>
+</view>
+
+<view wx:if="{{!applyUser.name && !isOwner}}" class="bottom-safearea highLight {{'button'+(qualifiedToApply||record?' ':'')}}" bind:tap="applyClicked">
+    {{record && record.taskstatus === 0 ?'领用审核中':'领用'}}
+</view>
+<view class="button-check bottom-safearea" wx:if="{{applyUser.name}}">
+    <view bindtap="back">驳回</view>
+    <view bindtap="agree">同意</view>
+</view>
+<alert-module  class="showModule" show="{{ codeVisiable }}">
+    <view class="codeContent">
+        <canvas type="2d" class="qrCode" id="qrCode" canvas-id="myQrcode"></canvas>
+        <text>请资产管理员扫码批准申领</text>
+        <view bindtap="closeCode">关闭</view>
+    </view>
+</alert-module>

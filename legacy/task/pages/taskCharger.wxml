@@ -1,0 +1,64 @@
+
+  <view class="container containerBox">
+    
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$toptaskCharger$isBackShow}}" class="topCommon topBack" bindtap="$toptaskCharger$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+        <text class="title">审批人</text>
+      </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <view class="topSearch" id="topSearch" style="box-sizing: border-box;">
+      <view class="search">
+        <input placeholder="搜索" class="bg pd24" bindtap="searchFocus" value="{{inputSearch}}" bindinput="searchChange" bindconfirm="searchChange" placeholder-class="{{isFocus?'':'placeholderCenter'}}"/>
+      </view>
+    </view>
+    <scroll-view scroll-x class="tabsXScroll" id="tabsXScroll">
+      <view class="tabsContainer">
+        <block wx:for="{{tabsItem}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+          <view class="tabsItem {{ activeIndex === index ? 'active' : '' }}" bindtap="changeTab" style="box-sizing:border-box;" data-wpychangetab-a="{{index}}" data-wpychangetab-b="{{item.isDefault}}">
+            <text>{{item.tabName}}</text>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+    <scroll-view scroll-y style="height: {{height?height+'px':'974rpx'}}">
+      <scroll-view scroll-y class="tabsYScroll" scroll-into-view="{{scrollTopId}}" style="height: {{height?height+'px':'974rpx'}}">
+          <block wx:for="{{chargers}}" wx:for-index="key" wx:for-item="item" wx:key="key">
+              <view id="{{key}}" class="tabsChargerTitle"><text>{{key}}</text></view>
+              <block wx:for="{{item}}" wx:for-index="index" wx:for-item="subItem" wx:key="index">
+                <view class="tabsCharger" bindtap="bindCharger" data-wpybindcharger-a="{{subItem}}">
+                  <view class="tabsChargerImage">
+                    <image src="../../assets/images/task/default_photo.png"/>
+                    <!-- <image src="{{subItem.iconpath?subItem.iconpath:'../../assets/images/task/default_photo.png'}}"></image> -->
+                  </view>
+                  <view class="tabsChargerName"><text>{{subItem.name}}</text></view>
+                </view>
+              </block>
+          </block>
+      </scroll-view>
+      <!--用户选择列表-->
+      <view class="scrollList" bindtouchstart="chStart" bindtouchend="chEnd" catchtouchmove="chMove" style="background: rgba(125,125,125,{{trans}});padding-top:10px;"  wx:if="{{activeIndex===(tabsItem.length-1)&&(!tabsItem[tabsItem.length-1].isDefault)}}" id="charLine1">
+        <block wx:for="{{chargers}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+          <view id="{{index}}" class="scrollListChi" style="line-height:{{lineHeight}}px;height:{{lineHeight}}px;font-size:{{lineHeight/1.7}}px;" bindtouchstart="getWords" bindtouchend="setWords">{{index}}</view>
+        </block>
+      </view>
+      <!--选择显示-->
+      <view hidden="{{hidden}}" class="showWords" style="top:{{top}}px">
+        {{showWords}}
+      </view>
+    </scroll-view>
+  </view>

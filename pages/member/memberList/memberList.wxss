@@ -1,0 +1,133 @@
+/* pages/member/memberList/memberList.wxss */
+.page{
+  background-color: #fff;
+  height: 100%;
+}
+.search-filter{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.search-filter .search{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.search-filter .search .selectMenu{
+  margin-right: 10px;
+  width: auto;
+}
+.search-filter .search .searchValue{
+  flex: 1;
+}
+.search-filter .filter{
+  width: 60px;
+  color: #0077FF;
+}
+.memberlist{
+  margin: 2px 20px;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  font-weight: 300;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  border-bottom: solid 1px #eeeeee;
+}
+.memberlist:first-of-type{
+  border-top: solid 1px #eeeeee;
+}
+.avatar{
+  width: 40px;
+  height: 40px;
+  margin: 0px 10px 0px 5px;
+  display: flex;
+  align-items: center;
+  border-radius: 40%;
+  overflow: hidden;
+}
+.avatar image{
+  width: 100%;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-size: 13px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.title view:first-of-type{
+  color: #111111;
+  font-weight: 400;
+  min-width: 50px;
+  margin-right: 10px;
+  font-size: 15px;
+}
+.info{
+  font-size: 13px;
+}
+.info text{
+  margin-left: 15px;
+  color: #0077FF;
+}
+.selected{
+  background-color: #eeefff;
+}
+
+.bottom{
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px 0px;
+  border-top: solid 1px #9999993d;
+}
+.selectedMem{
+  height: 20px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+.selectedMem text{
+  color: #0077FF;
+  font-size: 18px;
+  margin-right: 8px;
+}
+.confirm{
+  font-size: 18px;
+  color: #0077FF;
+}
+.selectedlist{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  margin: 0px 12px;
+  height: 40px;
+  border-bottom: solid 1px #9999993a;
+}
+.selectedname{
+  color: #0077FF;
+}
+.selectedDelete{
+  display: flex;
+  align-items: center;
+}
+.selectedbutton{
+  height: 50px;
+  line-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 12px;
+  color: #0077FF;
+  border-bottom: solid 1px #99999946;
+}
+.selectedbutton view:first-of-type{
+  color: #999999;
+}

@@ -1,0 +1,15 @@
+<!--components/durations-picker/durations-picker.wxml-->
+<van-field label="{{title}}" value="{{content}}"  error="{{!!errorMessage}}" readonly is-link bind:tap="onClick" placeholder="请选择" error-message="{{errorMessage}}"></van-field>
+<van-popup
+        show="{{showDatetimePicker}}"
+        bind:close="onClose"
+        position="bottom">
+    <van-picker 
+      title="请选择"
+      show-toolbar
+      columns="{{ columns }}" 
+      bind:cancel="onCancel"
+      bind:confirm="onConfirm"
+    />
+</van-popup>
+

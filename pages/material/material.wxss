@@ -1,0 +1,28 @@
+.spaceContainer {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30rpx;
+    justify-content: space-between;
+    align-content: flex-start;
+}
+
+.item {
+    margin-bottom: 30rpx;
+    background:rgba(255,255,255,1);
+    display: flex;
+    height: 144rpx;
+    align-items: center;
+    width: 45%;
+    border-radius:8px;
+}
+
+.icon {
+    margin: 0 40rpx;
+}
+
+.label{
+    font-size:36rpx;
+    font-weight:500;
+    color:rgba(17,17,17,1);
+    line-height:50rpx;
+}

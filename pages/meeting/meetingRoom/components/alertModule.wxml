@@ -1,0 +1,5 @@
+<!--pages/mettingRoom/components/alertModule.wxml-->
+<view class="toast" wx:if="{{show}}" bindtap="close"></view>
+<view class="content" wx:if="{{show}}">
+  <slot></slot>
+</view>

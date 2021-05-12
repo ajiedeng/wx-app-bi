@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mp-navigation-bar": "/miniprogram_npm/weui-miniprogram/navigation-bar/navigation-bar",
+    "mp-loading": "/miniprogram_npm/weui-miniprogram/loading/loading",
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog"
+  },
+  "navigationStyle": "custom"
+}

@@ -1,0 +1,8 @@
+<page-meta>
+    <navigation-bar title="BraodLink公众号二维码"/>
+</page-meta>
+
+<view class="invite">
+    <h3>长按二维码将邀请图片发送给好友，或直接保存</h3>
+    <image show-menu-by-longpress="{{true}}" src="{{url}}"></image>
+</view>

@@ -1,0 +1,49 @@
+<!--index.wxml-->
+<mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" title="BroadLink" back="{{true}}">
+</mp-navigation-bar>
+
+<!-- <view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto" bindtap="btnclick">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view> -->
+<!-- popup -->
+<view class="popup" wx:if="{{menushow}}">
+	<!-- <view class="mask-layer"></view> -->
+	<view class="popup-container">
+		<view class="list-item">
+			<view class="user-info">
+				<text class="username">{{nickName}}</text>
+				<rich-text class="userqq">1076463137345@qq.com</rich-text>
+			</view>
+			<view class="user-icon">
+				<open-data type="userAvatarUrl"></open-data>
+			</view>
+		</view>
+		<view class="list-item">
+			<view class="set">
+				<image mode="widthFix" src="./images/icon_center_setup@2x.png" class="icon"></image>
+				<text>设置</text>
+			</view>
+			<view>
+				<image mode="widthFix" src="./images/icon_arrow@2x.png" class="arrow"></image>
+			</view>
+		</view>
+		<view class="list-item" bindtap="outLeftMenu">
+			<view class="out">
+				<image mode="widthFix" src="./images/icon_out@2x.png" class="icon"></image>
+				<text>退出</text>
+			</view>
+			<view>
+				<image mode="widthFix" src="./images/icon_arrow@2x.png" class="arrow"></image>
+			</view>
+		</view>
+	</view>
+</view>

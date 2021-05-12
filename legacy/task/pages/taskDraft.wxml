@@ -1,0 +1,688 @@
+
+  <view class="container containerBox">
+    
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$topTaskDraft$isBackShow}}" class="topCommon topBack" bindtap="$topTaskDraft$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+        <text class="title">草稿任务</text>
+      </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <view hidden="{{isShow}}">
+      <view class="taskCreateMain">
+        <view class="gap24"/>
+        <scroll-view scroll-y class="taskCreateScroll" style="height: {{height?height+'px':'1066rpx'}}">
+        <!-- <view class="taskCreateScroll" style="height: {{height?height+'px':'auto'}}"> -->
+          <view class="taskCreateItem border2">
+            <view style="width:40%">
+              <text style="color:red">* </text>
+              <text>任务分类：</text>
+            </view>
+            <view style="width:60%;height:100%;text-align:right">
+              <text>{{issueClassName}}</text>
+            </view>
+          </view>
+          <view class="taskCreateItem border2">
+            <view style="width:40%">
+              <text style="color:red">* </text>
+              <text>任务：</text>
+            </view>
+            <block>
+              <view style="width:60%;height:100%;text-align:right">
+                <text>{{issueSubClassName}}</text>
+              </view>
+            </block>
+          </view>
+          <view class="taskCreateItem border2">
+            <view style="width:40%">
+              <text style="color:red">* </text>
+              <text>任务名称：</text>
+            </view>
+            <view style="width:60%;height:100%">
+              <input class="filledInput" style="padding-right:0;" value="{{issueName}}" name="input" type="text" placeholder-class="placeholderRight" placeholder="请输入任务名称" bindinput="taskNameChange"/>
+            </view>
+          </view>
+          <view class="taskCreateItem border2">
+            <view style="width:40%">
+              <text style="color:red">* </text>
+              <text>超时时间(h)：</text>
+            </view>
+            <view style="width:55%;height:100%">
+              <picker bindchange="timeoutChange" value="{{timeoutIndex}}" range="{{timeout}}" class="picker">
+                <view class="picker filledInput" style="padding-right:0;">
+                  <text>{{timeoutValue===''?'请选择':timeout[timeoutIndex]}}</text>
+                </view>
+              </picker>
+            </view>
+            <view style="width:5%">
+              <text class="iconfont icon-jiantouarrow487" style="color:#ababab;"/>
+            </view>
+          </view>
+          <!-- 模板信息 -->
+          <view  wx:if="{{issueSubClass!==''}}" class="module">
+            
+  <view class="moduleList">
+    <block wx:for="{{$moduleDraft$jobModule}}" wx:for-index="$moduleDraft$index" wx:for-item="$moduleDraft$item" wx:key="$moduleDraft$index">
+      <block  wx:if="{{$moduleDraft$item.modeltype!=='7'&&($moduleDraft$item.isShow!=='0'||$moduleDraft$item.canShow)&&(!$moduleDraft$item.sumUpIndex&&!$moduleDraft$item.sumLowIndex)&&!$moduleDraft$item.shouldHide}}">
+        <!-- 1.单行文本  -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}} moduleP1" wx:if="{{$moduleDraft$item.modeltype==='1'}}">
+          <view class="moduleLR">
+            <view class="moduleL">
+              <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+              <text>{{$moduleDraft$item.modelname}}：</text>
+            </view>
+            <view class="moduleR">
+              <view class="moduleRL">
+                
+  <block>
+    <view class="filledInput totalText"  wx:if="{{$moduleDraft$item.isRelyProperty&&$moduleDraft$item.isRelyProperty==='1'}}">
+      <text>{{$moduleDraft$item.value}}</text>
+    </view>
+    <input  wx:else value="{{$moduleDraft$item.value}}" placeholder="请输入" class="filledInput" placeholder-class="placeholder" bindinput="$moduleDraft$sText$modelInput" data-com-index="{{$moduleDraft$index}}"/>
+  </block>
+
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 2.多行文本  -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}} moduleP1624"  wx:if="{{$moduleDraft$item.modeltype==='2'}}">
+          <view class="moduleL moduleL4">
+            <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+            <text>{{$moduleDraft$item.modelname}}：</text>
+          </view>
+          
+  <view bindtap="$moduleDraft$mText$toTx" class="moduleTx mt16" data-com-index="{{$moduleDraft$index}}"><text class="gray28">{{$moduleDraft$item.value ? $moduleDraft$item.value : '请输入'}}</text></view>
+
+        </view>
+        <!-- 4.多个文件  -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}} moduleP1624" wx:if="{{$moduleDraft$item.modeltype==='3'||$moduleDraft$item.modeltype==='4'}}">
+          <view class="moduleL moduleL4">
+            <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+            <text>{{$moduleDraft$item.modelname}}：</text>
+          </view>
+          
+  <view class="propertyFile">
+    <block wx:for="{{$moduleDraft$item.multi_attach_buff}}" wx:for-index="$moduleDraft$file$i4" wx:for-item="$moduleDraft$file$item4" wx:key="$moduleDraft$file$i4">
+      <view class="file"  wx:if="{{$moduleDraft$file$item4.isImg}}">
+        <image class="fileImage" src="{{$moduleDraft$file$item4.downloadUrl}}"/>
+        <view class="fileDelete" catchtap="$moduleDraft$file$deleteFile" data-com-index="{{$moduleDraft$index}}" data-wpydeletefile-a="{{$moduleDraft$index}}" data-wpydeletefile-b="{{$moduleDraft$file$i4}}">
+          <text class="iconfont icon-cha" style="color:#fff;"/>
+        </view>
+        <view class="fileText"><text>{{$moduleDraft$file$item4.file_name}}</text></view>
+      </view>
+      <view class="file"  wx:else>
+        <image class="fileImage" src="../../assets/images/task/file.png"/>
+        <view class="fileDelete" catchtap="$moduleDraft$file$deleteFile" data-com-index="{{$moduleDraft$index}}" data-wpydeletefile-a="{{$moduleDraft$index}}" data-wpydeletefile-b="{{$moduleDraft$file$i4}}">
+          <text class="iconfont icon-cha" style="color:#fff;"/>
+        </view>
+        <view class="fileText"><a>{{$moduleDraft$file$item4.file_name}}</a></view>
+      </view>
+    </block>
+    <view class="file fileImage fileAdd">
+      <image src="../../assets/images/task/add.png" catchtap="$moduleDraft$file$uploadFile" data-com-index="{{$moduleDraft$index}}" data-wpyuploadfile-a="{{$moduleDraft$index}}" data-wpyuploadfile-b="{{$moduleDraft$file$i4}}"/>
+    </view>
+  </view>
+
+        </view>
+        <!-- 5.枚举 -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}}"  wx:if="{{$moduleDraft$item.modeltype==='5'}}">
+          <view class="moduleLR">
+            <view class="moduleL">
+              <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+              <text>{{$moduleDraft$item.modelname}}：</text>
+            </view>
+            <view class="moduleR">
+              <view class="moduleRL">
+                
+  <picker class="picker" value="{{$moduleDraft$item.selectedIndex}}" range="{{($moduleDraft$item.enumList && $moduleDraft$item.enumList.length > 0)?$moduleDraft$item.enumList:$moduleDraft$item.selectList}}" bindchange="$moduleDraft$selector$enumChange" data-com-index="{{$moduleDraft$index}}">
+    <view class="pickerTxt">
+      <text class="{{$moduleDraft$item.value===''?'gray28':''}}">{{$moduleDraft$item.value===''?'请选择':$moduleDraft$item.value}}</text>
+    </view>
+  </picker>
+
+              </view>
+              <view class="moduleRR">
+                <text class="iconfont icon-jiantouarrow487 iconColor"/>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 6. 多选 -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}} moduleP1624" wx:if="{{$moduleDraft$item.modeltype==='6'}}">
+          <view class="moduleL moduleL4">
+            <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+            <text>{{$moduleDraft$item.modelname}}：</text>
+          </view>
+          
+  <checkbox-group class="checkbox" bindchange="$moduleDraft$checkBox$checkboxChange" data-com-index="{{$moduleDraft$index}}">
+    <block wx:for="{{$moduleDraft$item.multiSelectList}}" wx:for-index="$moduleDraft$checkBox$index6" wx:for-item="$moduleDraft$checkBox$item6" wx:key="$moduleDraft$checkBox$index6">
+      <view class="checkboxItem">
+        <checkbox value="{{$moduleDraft$checkBox$item6}}" checked="{{$moduleDraft$item.value[$moduleDraft$checkBox$index6]}}"/><text>{{$moduleDraft$checkBox$item6}}</text>
+      </view>
+    </block>
+  </checkbox-group>
+
+        </view>
+        <!-- 7. 分割线 -->
+        <!-- 8. 表格 -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}} moduleP8" wx:if="{{$moduleDraft$item.modeltype==='8'}}">
+          
+  <view class="taskItem8">
+    <view class="thead" style="padding-top:0">
+      <view class="tableName">
+        <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+        <text class="gray99">{{$moduleDraft$item.modelname}}</text>
+      </view>
+    </view>
+    <view class="tbody">
+      <block wx:for="{{$moduleDraft$item.tbodyArray}}" wx:for-index="$moduleDraft$table$i8" wx:for-item="$moduleDraft$table$item8" wx:key="$moduleDraft$table$i8">
+        
+<view class="moduleList">
+  <block wx:for="{{$moduleDraft$table$item8}}" wx:for-index="$moduleDraft$table$tableView$i" wx:for-item="$moduleDraft$table$tableView$itemInner" wx:key="$moduleDraft$table$tableView$i">
+    <block>
+      <view class="tbRow">
+        <view class="tbHead">
+          <view class="tableRow"  wx:if="{{$moduleDraft$table$tableView$itemInner.rowsName && $moduleDraft$table$tableView$i===0}}"><text class="gray28">{{$moduleDraft$table$tableView$itemInner.rowsName}}</text></view>
+          <view class="tableRow tableNoRow"  wx:if="{{!$moduleDraft$table$tableView$itemInner.rowsName && $moduleDraft$table$tableView$i===0}}">
+            <view><text>条目{{$moduleDraft$table$i8+1}}</text></view>
+            <view class="handleBtn">
+              <view class="addBtn" bindtap="$moduleDraft$table$tableView$addTableRow" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}" data-wpyaddtablerow-a="{{$moduleDraft$table$tableView$i}}">增加</view>
+              <view class="delBtn" hidden="{{$moduleDraft$table$i8===0}}" bindtap="$moduleDraft$table$tableView$delTableRow" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}" data-wpydeltablerow-a="{{$moduleDraft$table$tableView$i}}">删除</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- text -->
+      <view class="moduleItem module1" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='text'}}">
+        <view class="moduleLR">
+          <view class="moduleL">
+            <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+            <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+          </view>
+          <view class="moduleR">
+            <view class="moduleRL">
+              
+  <block>
+    <view class="filledInput totalText"  wx:if="{{$moduleDraft$table$tableView$itemInner.isRelyProperty&&$moduleDraft$table$tableView$itemInner.isRelyProperty==='1'}}">
+      <text>{{$moduleDraft$table$tableView$itemInner.value}}</text>
+    </view>
+    <input  wx:else value="{{$moduleDraft$table$tableView$itemInner.value}}" placeholder="请输入" class="filledInput" placeholder-class="placeholder" bindinput="$moduleDraft$table$tableView$tbsText$modelInput" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}"/>
+  </block>
+
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="moduleItem module1" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='number'}}">
+        <view class="moduleLR">
+          <view class="moduleL">
+            <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+            <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+          </view>
+          <view class="moduleR">
+            <view class="moduleRL">
+              
+  <input class="filledInput" placeholder="请输入" bindinput="$moduleDraft$table$tableView$tbSum$sumChange" value="{{$moduleDraft$table$tableView$itemInner.value}}" placeholder-class="placeholderRight" type="digit" min="0" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}"/>
+
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="moduleItem module1" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='number_noSum'}}">
+        <view class="moduleLR">
+          <view class="moduleL">
+            <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+            <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+          </view>
+          <view class="moduleR">
+            <view class="moduleRL">
+              
+  <block>
+    <input  wx:if="{{$moduleDraft$table$tableView$itemInner.isRelyProperty!=='1'}}" value="{{$moduleDraft$table$tableView$itemInner.value}}" placeholder="请输入" class="filledInput" placeholder-class="placeholder" bindinput="$moduleDraft$table$tableView$tbNSum$modelInput" type="digit" min="0" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}"/>
+    <text  wx:else>{{$moduleDraft$table$tableView$itemInner.value}}</text>
+  </block>
+
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- textarea -->
+      <view class="moduleItem module2 moduleP1624" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='textarea'}}">
+        <view class="moduleL moduleL4">
+          <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+          <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+        </view>
+        
+  <view bindtap="$moduleDraft$table$tableView$tbmText$toTx" class="moduleTx mt16" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}"><text class="gray28">{{$moduleDraft$table$tableView$itemInner.value ? $moduleDraft$table$tableView$itemInner.value : '请输入'}}</text></view>
+
+      </view>
+      <!-- file -->
+      <view class="moduleItem module3 moduleP1624" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='file'}}">
+        <view class="moduleL moduleL4">
+          <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+          <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+        </view>
+        
+  <view class="propertyFile">
+    <block wx:for="{{$moduleDraft$table$tableView$itemInner.multi_attach_buff}}" wx:for-index="$moduleDraft$table$tableView$tbFile$i4" wx:for-item="$moduleDraft$table$tableView$tbFile$item4" wx:key="$moduleDraft$table$tableView$tbFile$i4">
+      <view class="file"  wx:if="{{$moduleDraft$table$tableView$tbFile$item4.isImg}}">
+        <image class="fileImage" src="{{$moduleDraft$table$tableView$tbFile$item4.downloadUrl}}"/>
+        <view class="fileDelete" catchtap="$moduleDraft$table$tableView$tbFile$deleteFile" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}" data-wpydeletefile-a="{{$moduleDraft$table$tableView$i}}" data-wpydeletefile-b="{{$moduleDraft$table$tableView$tbFile$i4}}">
+          <text class="iconfont icon-cha" style="color:#fff;"/>
+        </view>
+        <view class="fileText"><text>{{$moduleDraft$table$tableView$tbFile$item4.file_name}}</text></view>
+      </view>
+      <view class="file"  wx:else>
+        <image class="fileImage" src="../../assets/images/task/file.png"/>
+        <view class="fileDelete" catchtap="$moduleDraft$table$tableView$tbFile$deleteFile" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}" data-wpydeletefile-a="{{$moduleDraft$table$tableView$i}}" data-wpydeletefile-b="{{$moduleDraft$table$tableView$tbFile$i4}}">
+          <text class="iconfont icon-cha" style="color:#fff;"/>
+        </view>
+        <view class="fileText"><a>{{$moduleDraft$table$tableView$tbFile$item4.file_name}}</a></view>
+      </view>
+    </block>
+    <view class="file fileImage fileAdd">
+      <image src="../../assets/images/task/add.png" catchtap="$moduleDraft$table$tableView$tbFile$uploadFile" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}" data-wpyuploadfile-a="{{$moduleDraft$table$tableView$i}}" data-wpyuploadfile-b="{{$moduleDraft$table$tableView$tbFile$i4}}"/>
+    </view>
+  </view>
+
+      </view>
+      <!-- select -->
+      <view class="moduleItem module5" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='select'}}">
+        <view class="moduleLR">
+          <view class="moduleL">
+            <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+            <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+          </view>
+          <view class="moduleR">
+            <view class="moduleRL">
+              
+  <picker class="picker" value="{{$moduleDraft$table$tableView$itemInner.selectedIndex}}" range="{{($moduleDraft$table$tableView$itemInner.enumList && $moduleDraft$table$tableView$itemInner.enumList.length > 0)?$moduleDraft$table$tableView$itemInner.enumList:$moduleDraft$table$tableView$itemInner.selectList}}" bindchange="$moduleDraft$table$tableView$tbSelector$enumChange" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}">
+    <view class="pickerTxt">
+      <text class="{{$moduleDraft$table$tableView$itemInner.value===''?'gray28':''}}">{{$moduleDraft$table$tableView$itemInner.value===''?'请选择':$moduleDraft$table$tableView$itemInner.value}}</text>
+    </view>
+  </picker>
+
+            </view>
+            <view class="moduleRR">
+              <text class="iconfont icon-jiantouarrow487 iconColor"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- date -->
+      <view class="moduleItem module9" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='date'}}">
+        <view class="moduleLR">
+          <view class="moduleL">
+            <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+            <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+          </view>
+          <view class="moduleR">
+            <view class="moduleRL">
+              
+  <picker class="picker" value="{{$moduleDraft$table$tableView$itemInner.value}}" mode="date" start="{{$moduleDraft$table$tableView$itemInner.startDate}}" end="{{$moduleDraft$table$tableView$itemInner.endDate}}" bindchange="$moduleDraft$table$tableView$tbDate$dateChange" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}">
+    <!-- <view class="pickerTxt"><text class="{{(item.value==='请选择'||item.content==='请选择')?'gray28':''}}">{{item.value || '请选择'}}</text></view> -->
+    <view class="pickerTxt"><text class="{{(!$moduleDraft$table$tableView$itemInner.value||$moduleDraft$table$tableView$itemInner.value ==='请选择')?'gray28':''}}">{{$moduleDraft$table$tableView$itemInner.value?$moduleDraft$table$tableView$itemInner.value:'请选择'}}</text></view>
+  </picker>
+
+            </view>
+            <view class="moduleRR">
+              <text class="iconfont icon-jiantouarrow487 iconColor"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="moduleItem module9" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='datetime'}}">
+        <view class="moduleLR">
+          <view class="moduleL">
+            <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+            <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+          </view>
+          <view class="moduleR">
+            <view class="moduleRL">
+              
+  <picker mode="multiSelector" value="{{$moduleDraft$table$tableView$itemInner.multiIndex}}" range="{{$moduleDraft$table$tableView$itemInner.multiArray}}" bindchange="$moduleDraft$table$tableView$tbDatetime$multiTimeChange" bindcolumnchange="$moduleDraft$table$tableView$tbDatetime$multiTimeColumnChange" class="picker" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}">
+    <view class="pickerTxt"><text class="{{(!$moduleDraft$table$tableView$itemInner.value||$moduleDraft$table$tableView$itemInner.value ==='请选择')?'gray28':''}}">{{$moduleDraft$table$tableView$itemInner.value?$moduleDraft$table$tableView$itemInner.value:'请选择'}}</text></view>
+  </picker>
+
+            </view>
+            <view class="moduleRR">
+              <text class="iconfont icon-jiantouarrow487 iconColor"/>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- urllink -->
+      <view class="moduleItem module10 moduleP1624" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsType==='urllink'}}">
+        <view class="moduleL moduleL4">
+          <text class="redStar" wx:if="{{$moduleDraft$table$tableView$itemInner.columnsRequired==='1'}}">* </text>
+          <text>{{$moduleDraft$table$tableView$itemInner.columnsName}}：</text>
+        </view>
+        
+  <view bindtap="$moduleDraft$table$tableView$tbmText$toTx" class="moduleTx mt16" data-com-index="{{$moduleDraft$index}}-{{$moduleDraft$table$i8}}-{{$moduleDraft$table$tableView$i}}"><text class="gray28">{{$moduleDraft$table$tableView$itemInner.value ? $moduleDraft$table$tableView$itemInner.value : '请输入'}}</text></view>
+
+      </view>
+    </block>
+  </block>
+</view>
+
+      </block>
+    </view>
+  </view>
+
+        </view>
+        <!-- 9. 日期时间 -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}}"  wx:if="{{$moduleDraft$item.modeltype==='9' && $moduleDraft$item.dateForm==='1'}}">
+          <view class="moduleLR">
+            <view class="moduleL">
+              <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+              <text>{{$moduleDraft$item.modelname}}：</text>
+            </view>
+            <view class="moduleR">
+              <view class="moduleRL">
+                
+  <picker class="picker" value="{{$moduleDraft$item.value}}" mode="date" start="{{$moduleDraft$item.startDate}}" end="{{$moduleDraft$item.endDate}}" bindchange="$moduleDraft$date$dateChange" data-com-index="{{$moduleDraft$index}}">
+    <!-- <view class="pickerTxt"><text class="{{(item.value==='请选择'||item.content==='请选择')?'gray28':''}}">{{item.value || '请选择'}}</text></view> -->
+    <view class="pickerTxt"><text class="{{(!$moduleDraft$item.value||$moduleDraft$item.value ==='请选择')?'gray28':''}}">{{$moduleDraft$item.value?$moduleDraft$item.value:'请选择'}}</text></view>
+  </picker>
+
+              </view>
+              <view class="moduleRR">
+                <text class="iconfont icon-jiantouarrow487 iconColor"/>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}}" wx:if="{{$moduleDraft$item.modeltype==='9' && $moduleDraft$item.dateForm==='2'}}">
+          <view class="moduleLR">
+            <view class="moduleL">
+              <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+              <text>{{$moduleDraft$item.modelname}}：</text>
+            </view>
+            <view class="moduleR">
+              <view class="moduleRL">
+                
+  <picker mode="multiSelector" value="{{$moduleDraft$item.multiIndex}}" range="{{$moduleDraft$item.multiArray}}" bindchange="$moduleDraft$datetime$multiTimeChange" bindcolumnchange="$moduleDraft$datetime$multiTimeColumnChange" class="picker" data-com-index="{{$moduleDraft$index}}">
+    <view class="pickerTxt"><text class="{{(!$moduleDraft$item.value||$moduleDraft$item.value ==='请选择')?'gray28':''}}">{{$moduleDraft$item.value?$moduleDraft$item.value:'请选择'}}</text></view>
+  </picker>
+
+              </view>
+              <view class="moduleRR">
+                <text class="iconfont icon-jiantouarrow487 iconColor"/>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 10.url链接 -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}} moduleP1624" wx:if="{{$moduleDraft$item.modeltype==='10'}}">
+          <view class="moduleL moduleL4">
+            <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+            <text>{{$moduleDraft$item.modelname}}：</text>
+          </view>
+          
+  <view bindtap="$moduleDraft$mText$toTx" class="moduleTx mt16" data-com-index="{{$moduleDraft$index}}"><text class="gray28">{{$moduleDraft$item.value ? $moduleDraft$item.value : '请输入'}}</text></view>
+
+        </view>
+        <!-- 11. 会议室预约 -->
+        <view class="moduleItem module{{$moduleDraft$item.modeltype}}" wx:if="{{$moduleDraft$item.modeltype==='11'}}">
+          
+  <!-- 是否预约会议室 -->
+    <view class="moduleLR" style="box-sizing: border-box;">
+      <view class="moduleL">
+        <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+        <text>是否预约会议室：</text>
+      </view>
+      <view class="moduleR">
+        <view class="moduleRL">
+          <picker class="picker" value="{{$moduleDraft$item.value.isreserved}}" range-key="label" range="{{$moduleDraft$meeting$reserveOptions}}" bindchange="$moduleDraft$meeting$enumChange" data-com-index="{{$moduleDraft$index}}">
+            <view class="pickerTxt">
+              <text class="{{$moduleDraft$item.value.isreserved===''?'gray28':''}}">{{$moduleDraft$item.value.isreserved===''?'请选择':($moduleDraft$item.value.isreserved === '0' ? '是' : '否')}}</text>
+            </view>
+          </picker>
+        </view>
+        <view class="moduleRR">
+          <text class="iconfont icon-jiantouarrow487 iconColor"/>
+        </view>
+      </view>
+    </view>
+    <block  wx:if="{{$moduleDraft$item.value.isreserved === '0'}}">
+      <!-- 选择会议室 -->
+      <view class="moduleLR">
+        <view class="moduleL">
+          <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+          <text>选择会议室：</text>
+        </view>
+        <view class="moduleR" bindtap="$moduleDraft$meeting$toSelectRoom" data-com-index="{{$moduleDraft$index}}">
+          <view class="moduleRL">
+            <view class="picker">
+              <view class="pickerTxt">
+                <text class="{{$moduleDraft$item.value.meetingroom===''?'gray28':''}}">{{$moduleDraft$item.value.meetingroom===''?'请选择':$moduleDraft$item.value.meetingroomname}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="moduleRR">
+            <text class="iconfont icon-jiantouarrow487 iconColor"/>
+          </view>
+        </view>
+      </view>
+      <!-- 会议日期 -->
+      <view class="moduleLR">
+        <view class="moduleL">
+          <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+          <text>会议日期：</text>
+        </view>
+        <view class="moduleR">
+          <view class="moduleRL">
+            <picker class="picker" value="{{$moduleDraft$item.value.mtdate}}" mode="date" start="{{$moduleDraft$item.value.mtstartdate}}" end="{{$moduleDraft$item.value.mtenddate}}" bindchange="$moduleDraft$meeting$dateChange" data-com-index="{{$moduleDraft$index}}">
+              <view class="pickerTxt"><text class="{{(!$moduleDraft$item.value.mtdate||$moduleDraft$item.value.mtdate ==='请选择')?'gray28':''}}">{{$moduleDraft$item.value.mtdate?$moduleDraft$item.value.mtdate:'请选择'}}</text></view>
+            </picker>
+          </view>
+          <view class="moduleRR">
+            <text class="iconfont icon-jiantouarrow487 iconColor"/>
+          </view>
+        </view>
+      </view>
+      <!-- 与会人员 -->
+      <view class="moduleLR">
+        <view class="moduleL">
+          <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+          <text>与会人员：</text>
+        </view>
+        <view class="moduleR" bindtap="$moduleDraft$meeting$toSelectParterners" data-com-index="{{$moduleDraft$index}}">
+          <view class="moduleRL">
+            <view class="picker">
+              <view class="pickerTxt">
+                <text class="{{(!$moduleDraft$item.value.relatelabels||$moduleDraft$item.value.relatelabels ==='请选择')?'gray28':''}}">{{$moduleDraft$item.value.relatelabels || '请选择'}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="moduleRR">
+            <text class="iconfont icon-jiantouarrow487 iconColor"/>
+          </view>
+        </view>
+      </view>
+      <!-- 会议时间段 -->
+      <view class="moduleLR">
+        <view class="moduleL">
+          <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+          <text>会议时间段：</text>
+        </view>
+        <view class="moduleR" bindtap="$moduleDraft$meeting$popupMeetingShow" data-com-index="{{$moduleDraft$index}}">
+          <view class="moduleRL">
+            <view class="picker">
+              <view class="pickerTxt">
+                 <text class="{{$moduleDraft$item.value.mttime===''?'gray28':''}}">{{$moduleDraft$item.value.mttime===''?'请选择':$moduleDraft$item.value.mttime}}</text>
+              </view>
+            </view>
+          </view>
+          <view class="moduleRR">
+            <text class="iconfont icon-jiantouarrow487 iconColor"/>
+          </view>
+        </view>
+      </view>
+      <!-- 会议主题 -->
+      <view class="moduleLR">
+        <view class="moduleL">
+          <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+          <text>主题：</text>
+        </view>
+        <view class="moduleR">
+          <view class="moduleRL">
+            <view class="picker">
+              <view class="pickerTxt">
+                <input value="{{$moduleDraft$item.value.name}}" placeholder="请输入" class="filledInput" placeholder-class="placeholder" bindblur="$moduleDraft$meeting$nameBlur" style="height: 98rpx;" data-com-index="{{$moduleDraft$index}}"/>
+              </view>
+            </view>
+          </view>
+          <view class="moduleRR">
+            <text class="iconfont icon-jiantouarrow487 iconColor"/>
+          </view>
+        </view>
+      </view>
+      <!-- 备注 -->
+      <view class="moduleLR">
+        <view class="moduleL">
+          <text class="redStar" hidden="{{$moduleDraft$item.isRequired==='0'}}">* </text>
+          <text>备注：</text>
+        </view>
+        <view class="moduleR">
+          <view class="moduleRL">
+            <view class="picker">
+              <view class="pickerTxt">
+                <input value="{{$moduleDraft$item.value.note}}" placeholder="请输入" class="filledInput" placeholder-class="placeholder" bindblur="$moduleDraft$meeting$noteBlur" style="height: 98rpx;" data-com-index="{{$moduleDraft$index}}"/>
+              </view>
+            </view>
+          </view>
+          <view class="moduleRR">
+            <text class="iconfont icon-jiantouarrow487 iconColor"/>
+          </view>
+        </view>
+      </view>
+    </block>
+    <!-- 时间段选择 -->
+    <view class="wrap" hidden="{{!$moduleDraft$meeting$popupVisible}}">
+      <view class="mask {{$moduleDraft$meeting$visible ? 'mask-show' : ''}}" bindtap="$moduleDraft$meeting$popupCancel" data-com-index="{{$moduleDraft$index}}"/>
+      <view class="box" id="modal-box">
+        <view class="popop-btn">
+          选择会议时间段
+          <view bindtap="$moduleDraft$meeting$periodCancel" class="cancel-btn" data-com-index="{{$moduleDraft$index}}">
+            <text>取消</text>
+          </view>
+          <view bindtap="$moduleDraft$meeting$periodConfirm" class="success-btn" data-com-index="{{$moduleDraft$index}}">
+            <text>确定</text>
+          </view>
+        </view>
+        <scroll-view scroll-y class="van-picker__columns" style="height: {{ $moduleDraft$meeting$itemHeight * $moduleDraft$meeting$visibleItemCount }}rpx" catchtouchmove="$moduleDraft$meeting$noop" scroll-into-view="{{'period'+$moduleDraft$meeting$slotId}}" data-com-index="{{$moduleDraft$index}}">
+          <block wx:for="{{$moduleDraft$meeting$columns}}" wx:for-index="$moduleDraft$meeting$periodI" wx:for-item="$moduleDraft$meeting$periodItem" wx:key="$moduleDraft$meeting$periodI">
+            <view id="{{'period'+$moduleDraft$meeting$periodI}}" data-slot="{{$moduleDraft$meeting$periodI}}" data-text="{{$moduleDraft$meeting$periodItem}}" class="{{'period-column' +( $moduleDraft$meeting$occupiedSlots[$moduleDraft$meeting$periodI] || $moduleDraft$meeting$expiredSlots[$moduleDraft$meeting$periodI] ?' expired':'')}}" style="height: {{ $moduleDraft$meeting$itemHeight }}rpx" catchtap="$moduleDraft$meeting$itemClicked" data-com-index="{{$moduleDraft$index}}">
+              <checkbox value="{{ $moduleDraft$meeting$selectedSlots[$moduleDraft$meeting$periodI] }}" checked="{{$moduleDraft$meeting$selectedSlots[$moduleDraft$meeting$periodI]}}" disabled="{{$moduleDraft$meeting$occupiedSlots[$moduleDraft$meeting$periodI] || $moduleDraft$meeting$expiredSlots[$moduleDraft$meeting$periodI]}}"/>
+              <view class="period-time">{{$moduleDraft$meeting$periodItem}}</view>
+              <view  wx:if="{{$moduleDraft$meeting$expiredSlots[$moduleDraft$meeting$periodI]}}">{{"已过期"}}</view>
+              <view  wx:elif="{{$moduleDraft$meeting$occupiedSlots[$moduleDraft$meeting$periodI]}}">{{"已被预定"}}</view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+
+        </view>
+      </block>
+    </block>
+  </view>
+
+          </view>
+          <!-- 审核人 -->
+          <view hidden="{{issueSubClass===''}}">
+            <view class="taskCreateItem border2">
+              <view style="width:40%">
+                <text>审批人</text>
+              </view>
+            </view>
+            <view class="taskListContent">
+              <block wx:for="{{issueGraphList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+                <view class="taskList" bindtap="selectCharger" data-wpyselectcharger-a="{{index}}" data-wpyselectcharger-b="{{item}}">
+                  <view class="taskIcon taskAuditIcon">
+                    <view class="taskAuditEdit" wx:if="{{item.isEdit}}">
+                      <text class="iconfont icon-bianji white"/>
+                    </view>
+                    <image src="../../assets/images/task/default_photo.png"/>
+                  </view>
+                  <view class="taskAuditName taskText">
+                    <text>{{item.node_name}}</text>
+                  </view>
+                  <view class="taskAuditCharger taskText">
+                    <!-- <text class="gray28">{{item.chargerName}}</text> -->
+                    <text class="gray28">{{item.user_name}}</text>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <!-- 抄送 -->
+          <view class="taskCreateCC" hidden="{{issueSubClass===''}}">
+            <view class="taskCreateItem border2" style="margin-top:24rpx;">
+              <view style="width:40%">
+                <!-- <text style="color:red">* </text> -->
+                <text>抄送人</text>
+              </view>
+              <view style="width:60%;height:100%">
+                <view class="picker">
+                  <text style="float:right" class="blue" bindtap="ccAdd">添加</text>
+                </view>
+              </view>
+            </view>
+            <view class="taskListContent">
+              <block wx:for="{{issueModelInfo.ccList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+                <view class="taskList" bindtap="deleteCC" data-wpydeletecc-a="{{index}}" data-wpydeletecc-b="{{item}}">
+                  <view class="taskIcon taskCCIcon">
+                    <image src="../../assets/images/task/default_photo.png"/>
+                    <view class="fileDelete">
+                      <text class="iconfont icon-cha" style="color:#fff;"/>
+                    </view>
+                  </view>
+                  <view class="taskCCName taskText">
+                    <text class="gray28">{{item.nickname || item.group_name}}</text>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+          <!-- 提交 -->
+          <cover-view class="taskCreateBottom" style="height:{{(width>768)?'184px':''}}">
+            <cover-view class="taskCreateBtn">
+              <cover-view class="taskCreateConfirm" bindtap="taskCreateConfirm">
+                <button class="dark">提交</button>
+              </cover-view>
+              <cover-view class="taskCreateDrafted" bindtap="taskCreateDrafted">
+                <button class="light">保存</button>
+              </cover-view>
+            </cover-view>
+          </cover-view>
+        <!-- </view> -->
+        </scroll-view>
+      </view>
+    </view>
+    <view class="model" wx:if="{{isShow}}">
+      <view class="modelBottom">
+        <textarea class="propertyTextarea" style="min-height: 150px;color:#000;" value="{{txValue}}" placeholder="请输入" maxlength="{{-1}}" bindinput="textareaChange" bindblur="textareaBlur"/>
+        <cover-view class="taskCreateBtn">
+          <cover-view class="taskCreateConfirm" bindtap="saveTx">
+            <button class="dark">确定</button>
+          </cover-view>
+        </cover-view>
+      </view>
+    </view>
+  </view>

@@ -1,0 +1,43 @@
+@import "./legacy/assets/styles/base";
+@import "./legacy/assets/iconfont/iconfont.wxss";
+@import "./legacy/assets/styles/style";
+
+
+/**app.wxss**/
+/* .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}  */
+.mask-layer {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.6;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+}
+
+/*page{*/
+/*  background-color: #F7F7F7;*/
+/*  font-family:PingFangSC-Medium,PingFang SC;*/
+/*  height: 100%;*/
+/*}*/
+.weui-navigation-bar__center text {
+  font-size: 36rpx;
+  font-family: SFProDisplay-Medium, SFProDisplay;
+  color: #000;
+  vertical-align: top;
+}
+@supports (bottom: constant(safe-area-inset-bottom)) or (bottom: env(safe-area-inset-bottom)) { 
+	.bottom-safearea {
+    	padding-bottom: constant(safe-area-inset-bottom) !important;
+      padding-bottom: env(safe-area-inset-bottom) !important;  
+    }
+}

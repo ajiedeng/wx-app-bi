@@ -1,0 +1,35 @@
+/**index.wxss**/
+.indexPage{
+  overflow-y: auto;
+  height: 100%;
+}
+.cellBox{
+  margin: 20rpx 0;
+}
+.confirmBtn{
+  border: none !important;
+  position: fixed !important;
+  bottom: 0;
+}
+.typeBoxTitle{
+  line-height: 60rpx;
+  font-size: 28rpx;
+  padding-left: 32rpx;
+  color: #666666;
+}
+.onSelected{
+  color: yellow;
+  background: #cccccc !important;
+}
+.value-class {
+  flex: none !important;
+}
+.popupTitle{
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+.cellGroupBox{
+  max-height: 800rpx;
+  overflow: scroll;
+}

@@ -1,0 +1,32 @@
+<!--search.wxml-->
+
+<view class="indexPage">
+	<view class="navbar" style="height:{{navBarHeight+'px'}}">
+		<view class="navbarBox" style="width:{{barBoxWidth+'px'}};top:{{barBoxTop+'px'}}">
+			<image src="./img/back.svg" alt="" bindtap="back"></image>
+			<view style="height:{{searchHeight+'px'}}">
+				<van-search custom-class="searchBar" focus="true" shape="round" value="{{ searchTxt }}" placeholder="请输入搜索关键词"
+				bind:search="onSearch" bind:change="onChange"/>
+			</view>
+		</view>
+	</view>
+	<view class="searchShortcutBox">
+		<view class="title">搜索指定内容</view>
+		<view class="searchShortcutLists">
+			<view wx:for="{{ filterVtConfig }}" wx:key="index"
+				class="{{'listItem '+ (searchColumn===item.column?'selected':'')}}" data-column="{{item.column}}"
+				bindtap="selectColumn">{{item.label}}</view>
+		</view>
+	</view>
+	<view class="searchShortcutBox">
+		<view class="titleBox">
+			<view class="title">历史搜索</view>
+			<image src="./img/delete.svg" bindtap="clearSearchHistory"></image>
+		</view>
+		<view class="searchShortcutLists">
+			<view wx:for="{{ historyConditions }}" wx:key="index" class="listItem" data-key="{{item.key}}" data-value="{{item.value}}" bindtap="selectHistory">
+				{{item.value}}
+			</view>
+		</view>
+	</view>
+</view>

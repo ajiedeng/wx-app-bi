@@ -1,0 +1,83 @@
+<!--pages/meetingRoom/meetingRoom.wxml-->
+<mp-navigation-bar loading="{{loading}}" show="{{show}}" animated="{{animated}}" color="{{color}}" background="{{background}}" back="{{false}}">
+		<view slot="left" class="navi">
+			<view catchtap="goBack" hover-stop-propagation="true"><image src="./image/back.svg" ></image></view>
+		</view>
+		<view slot="center" class="naviTitle">
+			<view>{{meetingAppointment}}</view>
+		</view>
+	</mp-navigation-bar>
+<view class="meetingRoom">
+	<view class="background">
+		<view wx:if="{{true}}" class="backgroundType">
+			<view class="backgroundImage">
+				<image src="{{ meetingTypeList[meetingStatus].src }}" ></image>
+			</view>
+			<view class="backgroundTypeContent">
+				<view class="tittle">{{ meetingTypeList[meetingStatus].status }}</view>
+				<view class="note" wx:if="{{meetingCancelReason}}">{{ meetingCancelReason }}</view>
+			</view>
+		</view>
+	</view>
+	<view class="meetingContent">
+		<view class="meetingTittle">
+			<view class="title">{{ meetingDetail }}</view>
+			<view class="control" wx:if="{{isCreator}}">
+				<text class="margin-right-25" wx:if="{{ statusStragy.editShow }}" bindtap="onEdit">编辑</text>
+				<text wx:if="{{ statusStragy.cancleShow }}" bindtap="onCanclePre">取消预约</text>
+			</view>
+		</view>
+		<view class="meetingList" wx:for="{{meetingContent}}" wx:for-index="idx" wx:for-item="item" wx:key="*this">
+			<view class="meetingLabel">{{item.label}}</view>
+			<view wx:if="{{item.label!=='与会人员'}}" class="meetingValue">{{item.value}}</view>
+			<view wx:else class="meetingMember" bindtap="checkMeetingMem">
+				<text class="colorGrey margin-right">已邀请{{item.value.invited}}人,</text>
+				<text class="colorBlue margin-right">{{item.value.agreed}}人参加,</text>
+				<text class="colorRed margin-right">{{item.value.disAgreed}}人不参加</text>
+				<image src="./image/list_arrowright.svg"></image>
+			</view>
+		</view>
+	</view>
+	<!-- bottom -->
+	<template wx:if="{{ statusStragy.agreeShow || statusStragy.preOverShow || statusStragy.continueShow }}" is="{{statusStragy.agreeShow && isInviteCreator ? 'agree' : statusStragy.preOverShow ? 'endOrCon' : ''}}" data="{{...agree,meetingStatus,...statusStragy, isCreator }}" />
+</view>
+<!-- 底部 template -->
+<template name="agree">
+  <view class="meetingBottom bottom-safearea" wx:if="{{agreeShow}}">
+		<view bindtap="agreeMeeting" data-haschoosed="true"  data-isagree="false" style="color: {{ hasChoosed && !isAgree ? '#999999' :'#007FFF' }}">{{hasChoosed && !isAgree ? '已不参加' : '不参加'}}</view>
+		<view bindtap="agreeMeeting" data-haschoosed="true"  data-isagree="true" class="split-border"  style="color: {{ hasChoosed && isAgree ? '#999999' : '#007FFF' }}">{{hasChoosed && isAgree ? '已参加' : '参加'}}</view>
+  </view>
+</template>
+<template name="endOrCon">
+  <view class="meetingBottom bottom-safearea">
+		<view wx:if="{{ preOverShow && isCreator }}" bindtap="meetingPreEndFun">提前结束</view>
+		<view wx:if="{{ continueShow && isCreator}}" bindtap="meetingAddTime" class="split-border">续约</view>
+  </view>
+</template>
+<!-- 弹框 取消预约-->
+<alert-module class="showModule" show="{{showCancle}}">
+	<view class="cancle-content">
+		<view class="title">请输入取消预约的原因</view>
+		<view class="input">
+			<input class="{{reasonErrShow ? 'inputErr' : ''}}" type="text" focus="{{true}}" bindblur="cancleReason" bindinput="checkReason" data-reason="cancleReason" value="{{cancleReason}}"/>
+		</view>
+		<view class="btn">
+			<view bindtap="closeModule">取消</view>
+			<view bindtap="confirmConcle">确认</view>
+		</view>
+	</view>
+</alert-module>
+<!-- 弹框 不参与 -->
+<alert-module class="showModule" show="{{ disagreeShow }}">
+	<view class="cancle-content">
+		<view class="title">请输入不参与的原因</view>
+		<view class="input">
+			<input class="{{disagreeErr ? 'inputErr' : ''}}" type="text" focus="{{true}}" bindblur="disaggreeReason" bindinput="checkdisReason" data-reason="disaggreeReason" value="{{disaggreeReason}}"/>
+		</view>
+		<view class="btn">
+			<view bindtap="closeDis">取消</view>
+			<view bindtap="confirmDis">确认</view>
+		</view>
+	</view>
+</alert-module>
+

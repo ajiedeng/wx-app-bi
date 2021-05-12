@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "van-uploader": "../../components/uploader"
+  },
+  "navigationStyle":"default"
+}

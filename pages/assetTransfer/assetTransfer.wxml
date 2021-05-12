@@ -1,0 +1,45 @@
+<!--pages/assetTransfer/assetTransfer.wxml-->
+<page-meta>
+  <navigation-bar title="固定资产领用" />
+</page-meta>
+<view class="transfer" id="transfer" style="height: calc(100% - {{topHeight + isOwner ? 0 : 70}}px)">
+  <van-cell-group>
+    <block wx:for="{{newColumns}}" wx:for-index="idx" wx:key="idx">
+      <van-cell title-width="100px" wx:if="{{item.column !== 'did' && item.column !== 'companyid'}}" title="{{item.label}}" value="{{item.name || '空'}}" />
+    </block>
+  </van-cell-group>
+  <van-cell-group custom-class="space">
+    <van-cell title-width="100px" bindtap="chooseLink" data-label="空间" title="分配空间" label="{{spaceName ? '' : '请选择空间'}}" center is-link="{{!isOwner}}" value="{{spaceName || '点击选择空间'}}" />
+  </van-cell-group>
+</view>
+<view class="bottom bottom-safearea" bindtap="onApply" wx:if="{{!isOwner}}">
+  领用
+</view>
+<mask show="{{ codeVisiable }}" class="maskModule" bindclose="onClose">
+  <view class="content">
+    <canvas type="2d" class="qrCode" id="qrCode"></canvas>
+    <view>请资产管理员扫码批准申领</view>
+  </view>
+</mask>
+<mask show="{{applyUser.name}}" maskStyle="background-color: #fff;opacity: 1;">
+  <view class="checkContent">
+    <van-cell-group>
+      <block wx:for="{{newColumns}}" wx:for-index="idx" wx:key="idx">
+        <van-cell title-width="100px" wx:if="{{item.column === 'name' || item.column === 'assetcode'}}" title="{{item.label}}" value="{{item.name || '空'}}" />
+      </block>
+    </van-cell-group>
+    <van-cell-group custom-class="space">
+      <block wx:for="{{paramList}}" wx:for-index="idx" wx:key="idx">
+        <van-cell itle-width="100px"  title="{{item.label}}" value="{{item.name}}" />
+      </block>
+    </van-cell-group>
+    <van-cell-group class="margin-bottom-10">
+      <van-cell title-width="100px" bindtap="chooseApplyUser" title="申领人" label="{{applyUser.name ? '' : '请选择申领人'}}" center is-link
+        value="{{applyUser.name}}" />
+    </van-cell-group>
+    <view class="checkButton">
+      <view bindtap="back">驳回</view>
+      <view bindtap="agree">同意</view>
+    </view>
+  </view>
+</mask>

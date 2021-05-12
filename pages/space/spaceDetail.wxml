@@ -1,0 +1,18 @@
+<!--pages/space/spaceDetail.wxml-->
+<page-meta>
+    <navigation-bar title="{{entity.name||'空间'}}"/>
+</page-meta>
+<view class="spacePage">
+    <view class="envBar">
+        <view class="envItem" wx:for="{{evnStates}}">
+            <view class="state">{{item.value}}</view>
+            <view class="envLabel">{{item.label}}</view>
+        </view>
+    </view>
+    <view class="spaceContainer">
+        <view class="item" data-pid="{{item.pid}}" bind:tap="modelClicked" wx:for="{{items}}">
+            <image class="icon" src="{{item.icon}}"></image>
+            <view class="label">{{item.label}}</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,7 @@
+<van-cell-group>
+    <van-cell title="{{title}}" value="{{content}}" is-link bind:tap="onClick"/>
+</van-cell-group>
+
+<van-action-sheet show="{{ showSheet }}" actions="{{ sheetActions }}" bind:close="onSheetClose"
+                  bind:select="onSheetSelect" overlay="{{true}}" close-on-click-overlay="true"
+                  close-on-click-action="true" cancel-text="取消" bind:cancel="onSheetClose"/>

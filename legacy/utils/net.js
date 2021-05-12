@@ -1,0 +1,1 @@
+"use strict";var base="https://office.ibroadlink.com/";exports.baseUrl=base;

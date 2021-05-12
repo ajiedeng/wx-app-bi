@@ -1,0 +1,53 @@
+
+  <view class="container containerBox">
+    <view class="topSection">
+        <image src="../assets/images/index/tab_1_background.png"/>
+        <view class="topBlock">
+          <view class="topCommon topTitle">
+            <text class="topCommon topHead white">BroadLink 智慧办公</text>
+          </view>
+          <view class="topCommon topTip">
+            <text class="topTipText white">{{date}}</text>
+          </view>
+        </view>
+    </view>
+    <view class="swiperSection">
+      <swiper indicator-dots autoplay circular="circular" class="swiperContent">
+        <block wx:for="{{swiperData}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+          <swiper-item data-index="index">
+            <view class="swiperItem">
+          <image class="swiperIcon" src="../assets/images/index/notify.png"/>
+            <view class="swiperGuide">
+              <view class="swiperText swiperTitle">{{item.title}}</view>
+              <view class="swiperText swiperTip">{{item.tip}}</view>
+            </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="mainSection" bindtouchstart="touchS" bindtouchend="touchE">
+      <view class="menusItem" bindtap="scanQRCode">
+        <view class="menusImage">
+          <image src="{{ qrCode.imgSrc }}"/>
+        </view>
+        <view class="menusText">
+          <text>{{ qrCode.title }}</text>
+        </view>
+      </view>
+      <block wx:for="{{menusData}}" wx:for-index="{{menus.url}}" wx:for-item="menus" wx:key="{{menus.url}}">
+        <navigator url="{{menus.url}}" open-type="navigate" hover-class="none">
+          <block  wx:if="{{isLogin}}">
+            <view class="menusItem">
+              <view class="menusImage">
+                <image src="{{ menus.imgSrc }}"/>
+              </view>
+              <view class="menusText">
+                <text>{{ menus.title }}</text>
+              </view>
+            </view>
+          </block>
+        </navigator>
+      </block>
+    </view>
+  </view>

@@ -1,0 +1,15 @@
+<template name="searchbar">
+    <view class="searchBar" id="searchBar">
+        <view class="searchInput" bind:tap="clickSearchInput">
+            <icon class="icon-box-img" type="search" size="40rpx"></icon>
+            <view class="searchItem" wx:for="{{queryConditionArray}}" data-key="{{item.key}}" catch:tap="deleteQueryCondition">
+                <text>{{item.text}}</text>
+                <mp-icon extClass="filterIcon" type="field" icon="close" color="#007FFF" size="{{13}}"></mp-icon>
+            </view>
+        </view>
+        <view class="searchFilter" bind:tap="clickSearchFilter">
+            <text>筛选</text>
+            <image src="./icon_shaixuan.svg"></image>
+        </view>
+    </view>
+</template>

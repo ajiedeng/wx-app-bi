@@ -1,0 +1,20 @@
+/* pages/login/login.wxss */
+.switchLabel {
+  font-size:26rpx;
+  color:rgba(0,127,255,1);
+  padding: 16rpx 28rpx;
+}
+
+
+.bbs {
+  margin: 2em;
+  text-align: center;
+  font-size:26rpx;
+  line-height: 1.5em;
+  position: absolute;
+  bottom: 0;
+}
+
+.bbs > text {
+  color: gray;
+}

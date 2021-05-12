@@ -1,0 +1,1 @@
+var getNzhObjByLang=require("./src/autoGet.js"),langs={s:require("./src/langs/cn_s.js"),b:require("./src/langs/cn_b.js")};module.exports=getNzhObjByLang(langs.s,langs.b);

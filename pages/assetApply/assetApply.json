@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "alert-module": "../meeting/meetingRoom/components/alertModule"
+  },
+  "navigationStyle":"default"
+}

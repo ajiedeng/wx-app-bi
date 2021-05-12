@@ -1,0 +1,96 @@
+/**index.wxss**/
+.indexPage{
+  overflow-y: auto;
+  height: 100%;
+}
+.navi{
+  display: flex;
+  justify-content: center;
+}
+.navi view {
+  padding: 0 24rpx;
+  height: 40rpx;
+}
+.navi view image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.pageLoading{
+  height: 70rpx;
+}
+.cardBox {
+  display: flex;
+  margin-top: 32rpx;
+  flex-wrap: wrap;
+}
+.card {
+  width: 330rpx;
+  height: 145rpx;
+  background-color: #fff;
+  border-radius:8rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+.card:nth-child(even){
+  margin-left: 12rpx;
+  margin-right: 32rpx;
+}
+.card:nth-child(odd){
+  margin-right: 12rpx;
+  margin-left: 32rpx;
+}
+.card .cardTxt {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.card .cardTxt text{
+  font-size:36rpx;
+  font-weight:500;
+  color:rgba(17,17,17,1);
+}
+.card .cardTxt .title{
+  color: #8F8F8F;
+  font-size: 24rpx;
+  font-weight:400;
+  width: 120rpx;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+.card image {
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.listBox {
+  margin: 0 32rpx;
+}
+.listBox text {
+  font-size:32rpx;
+  font-weight:500;
+  color:rgba(17,17,17,1);
+}
+.listBox .listBarBox {
+  background-color: #fff;
+  border-radius: 8rpx;
+  margin-top: 24rpx;
+  margin-bottom: 30rpx;
+}
+.listBox .listBarBox .listBar{
+  display: flex;
+  height: 132rpx;
+  align-items: center;
+  border-bottom: 2rpx solid #F7F7F7;
+  margin-left: 40rpx;
+}
+.listBox .listBarBox .listBar:last-child{
+  border: none;
+}
+.listBox .listBarBox .listBar image{
+  height: 52rpx;
+  width: 52rpx;
+  margin-right: 40rpx;
+}

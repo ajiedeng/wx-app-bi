@@ -1,0 +1,45 @@
+<import src="./toolbar.wxml"/>
+
+<van-popup
+        bind:click-overlay="clickOverlay"
+        close-on-click-overlay
+        bind:close="onClose"
+        show="{{show}}"
+        position="bottom">
+    <view class="van-picker custom-class">
+        <template is="toolbar" wx:if="{{ toolbarPosition === 'top' }}"
+                  data="{{ showToolbar, cancelButtonText, title, confirmButtonText }}"></template>
+        <view wx:if="{{ loading }}" class="van-picker__loading">
+            <loading color="#1989fa"/>
+        </view>
+        <scroll-view
+                scroll-y
+                class="van-picker__columns"
+                style="height: {{ itemHeight * visibleItemCount }}px"
+                catch:touchmove="noop"
+                scroll-into-view="{{'period'+slotId}}"
+        >
+
+            <view wx:for="{{ columns }}"
+                  id="{{'period'+index}}"
+                  data-slot="{{index}}"
+                  data-text="{{item}}"
+                  class="{{'period-column' +( occupiedSlots[index] || expiredSlots[index] ?' expired':'')}}"
+                  style="height: {{ itemHeight }}px"
+                  bind:tap="itemClicked">
+                <van-checkbox disabled="{{occupiedSlots[index] || expiredSlots[index]}}"
+                              value="{{ selectedSlots[index] }}"/>
+                <view class="period-time">{{item}}</view>
+                <view wx:if="{{expiredSlots[index]}}">{{"已过期"}}</view>
+                <view wx:elif="{{occupiedSlots[index]}}">{{"已被预定"}}</view>
+            </view>
+            <!--      <view class="van-picker__mask" style="background-size: 100% {{ (itemHeight * visibleItemCount - itemHeight) / 2 }}px" />-->
+            <!--      <view-->
+            <!--              class="van-picker__frame van-hairline&#45;&#45;top-bottom"-->
+            <!--              style="height: {{ itemHeight }}px"-->
+            <!--      />-->
+        </scroll-view>
+        <template is="toolbar" wx:if="{{ toolbarPosition === 'bottom' }}"
+                  data="{{ showToolbar, cancelButtonText, title, confirmButtonText }}"></template>
+    </view>
+</van-popup>

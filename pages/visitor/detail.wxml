@@ -1,0 +1,60 @@
+<page-meta>
+    <navigation-bar title="访客预约" front-color="#ffffff" background-color="#007FFF"/>
+</page-meta>
+<view class="page bottom-safeare" style="height:{{isCreator ? 'calc(100% - 40px)' : '100%'}}">
+    <!--pages/visitor/detail.wxml-->
+    <view class="detailPage">
+        <view class="auditWaiting">
+            <image mode="widthFix" src="./images/{{applyState[apply.status].image}}" alt=""/>
+            <view>
+                <text>{{apply.expired == 1 && ( apply.status == 2 ||  apply.status == 0) ? '已过期' : applyState[apply.status].text}}</text>
+                {{apply['department.name']}}
+            </view>
+        </view>
+        <view class="panel" >
+            <view class="scancode" wx:if="{{apply.status =='2'}}">
+                <view class="ipinfo">
+                    <text>{{apply.visitorname}}</text>
+                    {{apply.visitTimeText}}
+                </view>
+                <view class="code">
+                    <canvas type="2d" class="qrCode" id="qrCode" canvas-id="myQrcode"></canvas>
+                </view>
+                <view class="note">
+                    <text>1.请使用微信扫描门禁二维码进入</text>
+                    2.在前台自助扫描二维码打印标贴
+                </view>
+            </view>
+            <view class="loaction" bindtap='gotoMap'>
+                <view>
+                    <view class="nameCompany">{{apply['department.name']}}</view>
+                    <a>
+                        <image mode="widthFix" src="./images/icon_map.png"></image>{{apply['department.name']}}
+                    </a>
+                </view>
+                <view class="btnEnter">
+                    <image src="./images/icon_enter.png"></image>
+                </view>
+            </view>
+            <view class="meeting" wx:if="{{apply.meeting}}">
+                <van-panel wx:if="{{apply.meeting}}"  custom-class="meettitle" title="会议室"
+                           desc="已预约会议室: '{{apply['meeting.detail']['meetingroom.name']}}'，会议主题: '{{apply['meeting.detail']['name']}}'">
+                </van-panel>
+                <van-panel  wx:if="{{false}}" title="停车信息" desc="描述信息">
+                </van-panel>
+            </view>
+        </view>
+    </view>
+    <!-- 访客详情 -->
+    <view class="visitorDetail">
+        <van-cell-group title="访客详情">
+            <block wx:for="{{fields}}" wx:key="index">
+                <van-cell wx:if="{{item.key === 'visitduration'}}" title="{{item.name}}" value="{{apply[item.key] / 60 > 1 ? apply[item.key] / 60 + '小时' : apply[item.key] + '分钟'}}"/>
+                <van-cell wx:else title="{{item.name}}" value="{{apply[item.key]}}"/>
+            </block>
+        </van-cell-group>
+    </view>
+    <view wx:if="{{apply && isCreator}}" bind:tap="cancelOrReapply" class="bottomButton bottom-safearea">
+                {{apply.expired+'' !=='1' && (apply.status +''==='2' || apply.status+''==='0') ? '取消预约' : '重新预约'}}
+            </view>
+</view>

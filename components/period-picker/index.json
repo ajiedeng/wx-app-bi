@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "picker-column": "../../miniprogram_npm/@vant/weapp/picker-column/index",
+    "loading": "../../miniprogram_npm/@vant/weapp/loading/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-popup": "@vant/weapp/popup/index"
+  }
+}

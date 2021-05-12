@@ -1,0 +1,24 @@
+<!--index.wxml-->
+<mp-navigation-bar  title="考勤打卡"  background="#fff" back="{{true}}">
+</mp-navigation-bar>
+
+<view class="timecardBox">
+  <text class="title">默认班次 09:00-18:00</text>
+  <view class="cardInfo">
+    <text class="anchor {{morning?'cur':''}}">上</text>
+    <text class="time">{{ondutytime?('上班时间 '+ondutytime):'上班打卡'}}</text>
+    <text wx:if="{{ondutytime||ondutytime===0}}" class="tag {{ondutyTag==='正常'?'':'err'}}">{{ondutyTag}}</text>
+  </view>
+  <view class="holdblank"></view>
+  <view class="cardInfo">
+    <text class="anchor {{morning?'':'cur'}}">下</text>
+    <text class="time">{{offdutytime?('下班时间 '+offdutytime):'下班打卡'}}</text>
+    <text wx:if="{{offdutytime}}" class="tag {{offdutyTag==='正常'?'':'err'}}">{{offdutyTag}}</text>
+  </view>
+  <view wx:if="{{circleBtnShow}}" class="circleBox {{!ondutytime && lateFlag?'late':''}}">
+    <view class="circleInner" bindtap="addOrModifyCard">
+      <text class="circleTxt">{{circleTxt}}</text>
+      <text class="curTime">{{clockTime}}</text>
+    </view>
+  </view>
+</view>

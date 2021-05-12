@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "mp-navigation-bar": "/miniprogram_npm/weui-miniprogram/navigation-bar/navigation-bar",
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips"
+  },
+  "navigationBarTitleText": "编辑信息"
+}

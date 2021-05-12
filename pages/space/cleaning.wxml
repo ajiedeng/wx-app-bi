@@ -1,0 +1,57 @@
+<wxs module="m1">
+    function formatNumber(n){
+        n = n.toString()
+        return n[1] ? n : '0' + n
+    }
+
+    function formatTime(time){
+        var date = getDate(time*1000)
+        var year = date.getFullYear()
+        var month = date.getMonth() + 1
+        var day = date.getDate()
+        var hour = date.getHours()
+        var minute = date.getMinutes()
+        var second = date.getSeconds()
+
+        return [month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    }
+
+    module.exports.formatTime = formatTime
+</wxs>
+
+<page-meta>
+    <navigation-bar title="{{'保洁'}}"/>
+</page-meta>
+<view class="cleaning">
+    <view class="lastRecord">
+        <view class="label">上次保洁时间</view>
+        <view class="time">{{lastRecord ? m1.formatTime(lastRecord.createtime):''}}</view>
+    </view>
+    <view class="lastRecord">
+        <view class="label">是否消毒</view>
+        <view class="time"> <switch data-field="isDisinfect" bindchange="switchChange" disabled="{{done}}" checked="{{isDisinfect}}"/></view>
+    </view>
+    <view class="lastRecord">
+        <view class="label">是否清洁</view>
+        <view class="time"> <switch data-field="isClean" bindchange="switchChange" disabled="{{done}}" checked="{{isClean}}"/></view>
+    </view>
+    <view>
+        <view class="label addImgLabel">添加图片</view>
+        <van-uploader
+                file-list="{{image}}"
+                max-count="1"
+                deletable="{{!done}}"
+                accept="{{'image'}}"
+                bind:after-read="afterRead"
+                bind:delete="imgDelete"
+                bind:click-preview="clickPreview"
+        />
+    </view>
+</view>
+
+<view wx:if="{{!done}}" class="circleBox {{image[0].status ==='done' ?'':'late'}}">
+    <view class="circleInner" bindtap="submitClean">
+        <text class="circleTxt">{{'保洁打卡'}}</text>
+        <text class="curTime">{{clockTime}}</text>
+    </view>
+</view>

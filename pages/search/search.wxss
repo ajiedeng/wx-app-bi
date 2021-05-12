@@ -1,0 +1,72 @@
+/**index.wxss**/
+.indexPage {
+  overflow-y: auto;
+  height: 100%;
+  background: #ffffff;
+}
+
+.navbar {
+  padding-bottom: 10rpx;
+  position: relative;
+}
+
+.navbarBox {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  /* bottom: 14rpx; */
+  left: 0;
+}
+
+.navbar image {
+  width: 37rpx;
+  height: 37rpx;
+  padding: 0 26rpx 0 26rpx;
+}
+
+.searchBar {
+  width: 440rpx;
+  padding: 0 !important;
+  height: 100%;
+  overflow: hidden;
+}
+
+.title {
+  margin: 40rpx 0 32rpx 40rpx;
+  font-size: 32rpx;
+  color: #333B4D;
+  font-weight: 600;
+}
+.titleBox{
+  display: flex;
+  align-items: center;
+}
+.titleBox image{
+  width: 36rpx;
+  height: 36rpx;
+  margin: 0 16rpx ;
+}
+
+.searchShortcutLists {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.listItem {
+  padding: 10rpx 32rpx;
+  margin: 16rpx 20rpx;
+  background: #F7F7F7;
+  border-radius: 28rpx;
+  color: #666666;
+  font-size: 28rpx;
+  border: 2rpx solid #F7F7F7;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.listItem.selected {
+  background: #EDF5FE;
+  border: 2rpx solid #007FFF;
+  color: #007FFF;
+}

@@ -1,0 +1,76 @@
+<!--pages/filters.wxml-->
+<import src="./searchbar.wxml"/>
+<wxs module="m1">
+    function getColor(char) {
+        // var charCode = char.charCodeAt('0').toString(16)
+        // while (charCode.length < 6) {
+        //     charCode += 0
+        // }
+        return '#248EFF'
+    }
+
+    module.exports.getColor = getColor;
+</wxs>
+
+<mp-navigation-bar id="filtersNvabar" loading="{{loadingState[currentFilter]}}" title="{{title}}" back="{{false}}"
+                   background="#fff">
+    <view slot="left" class="navLeft">
+        <mp-icon type="field" icon="back" color="black" size="{{13}}" bind:tap="back"></mp-icon>
+        <mp-icon wx:if="{{canAdd &&!chooseMode&&!multipleMode}}" type="field" icon="add" color="black" size="{{25}}"
+                 class="addButton" bind:tap="addVt"></mp-icon>
+    </view>
+</mp-navigation-bar>
+
+<template is="searchbar" data="{{ queryConditionArray }}"></template>
+
+<view class="filter-page">
+    <scroll-view id='filtersView' scroll-x="true" class="filters">
+        <view wx:key="did" class="{{currentFilter === item.did? 'highlight':''}}" data-did="{{item.did}}"
+              bindtap="onFilterTagClick" wx:for="{{filters}}">
+            {{item.name}}
+        </view>
+    </scroll-view>
+
+    <scroll-view refresher-default-style="white"
+                 refresher-threshold="{{400}}"
+                 refresher-enabled="{{true}}"
+                 style='height:{{scrollViewHeight||1000}}px'
+                 bindscrolltolower="bindscrolltolower"
+                 bindrefresherrefresh="onRefresh"
+                 refresher-triggered="{{refresherTriggered}}"
+                 scroll-y="true" class="list"
+                 wx:if="{{filters}}">
+        <checkbox-group bindchange="radioChange">
+            <view wx:key="did" data-did="{{item.did}}" bindtap="chooseItem" class="item"
+                  wx:for="{{listByFilter[currentFilter].list}}">
+                <checkbox wx:if="{{chooseMode}}" checked="{{selectedItems[item.did]}}" value="{{item.did}}"/>
+                <view wx:if="{{isContactsVt}}" class="avatar" style="background:{{m1.getColor(item['name'])}};color:white;font-size: 20px">
+                    {{item['name'][0]}}
+                </view>
+                <view wx:else class="avatar" style="background:{{m1.getColor(item['owner.name'])}};color:white;font-size: 20px">
+                    {{item['owner.name'][0]}}
+                </view>
+
+                <view class="right">
+                    <block wx:if="{{!isContactsVt}}">
+                        <view class="title">{{item['owner.name']}}|{{item['updatetime']}}</view>
+                        <view class="content">{{item['name']}}</view>
+                    </block>
+                    <block wx:else>
+                        <view class="title">{{item['name']||item['nickname']}}-{{item["workingstatus"]}}</view>
+                        <view class="content phone" data-phone="{{item.phonenumber}}" catch:tap="makePhoneCall">
+                            {{item['phonenumber']}}
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </checkbox-group>
+        <mp-loading type="circle" show="{{loadingState[currentFilter]}}"></mp-loading>
+    </scroll-view>
+    <view class="selected" wx:if="{{listByFilter[currentFilter].list && chooseMode && multipleMode}}">
+        <view class="selectedNumber">已选择：{{selectedNumber}}项</view>
+        <view class="confirmSelected" bind:tap="confirmSelect">
+            确认({{selectedNumber}}/{{listByFilter[currentFilter].total}})
+        </view>
+    </view>
+</view>

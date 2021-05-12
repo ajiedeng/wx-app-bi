@@ -1,0 +1,19 @@
+<view class="page">
+    <mp-msg type="success" title="入库成功">
+        <view slot="desc">入库操作成功，您可继续入库或回首页</view>
+<!--        <view slot="extend">-->
+<!--            <view>{{"   "}} </view>-->
+<!--            <view>{{}}</view>-->
+<!--        </view>-->
+        <view slot="handle">
+            <button class="weui-btn" type="primary" bind:tap="next">下一个</button>
+            <button class="weui-btn" type="default" bind:tap="finish">完成</button>
+        </view>
+        <view slot="footer">
+            <view class="weui-footer__links">
+                <navigator url="" class="weui-footer__link">broadlink</navigator>
+            </view>
+<!--            <view class="weui-footer__text">Copyright © 2008-2020 weui.io</view>-->
+        </view>
+    </mp-msg>
+</view>

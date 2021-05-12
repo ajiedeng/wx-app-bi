@@ -1,0 +1,77 @@
+
+  <view class="container containerBox">
+    
+  <view class="topSection" id="topSection">
+    <view class="topBlock">
+      <view  wx:if="{{$topBar$isBackShow}}" class="topCommon topBack" bindtap="$topBar$goBack">
+        
+            <view class="iconBack">
+              <text class="iconfont icon-jiantouarrow487 white"/>
+            </view>
+            <text class="topTipText white">返回</text>
+        
+      </view>
+      <view class="topCommon topTitle">
+        <view class="topHead" style="color:#fff;font-size:36rpx;">
+          <view>
+        <text class="title">任务管理</text>
+      </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <view class="tabs" id="tabs">
+      <scroll-view scroll-x scroll-with-animation="scroll-with-animation" class="tabsXScroll tabsHead" id="tabsHead">
+        <view class="tabsContainer">
+          <block wx:for="{{tabList}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+            <view class="tabsItem {{ activeIndex === index ? 'active' : '' }}" bindtap="changeTab" data-wpychangetab-a="{{index}}" data-wpychangetab-b="{{item}}">
+              <text class="tabsTitle">{{item.tabName}}</text>
+              <view class="tabsBubble">
+                <view class="tabsDot"  wx:if="{{(index===0 && toproc_num>0) ||(index===3 && cc_num>0)}}"/>
+                  <view class="tabsNum">
+                    <text  wx:if="{{index===0 && toproc_num>0}}" class="tabsNumText">{{toproc_num}}</text>
+                    <text wx:if="{{index===3 && cc_num>0}}" class="tabsNumText">{{cc_num}}</text>
+                  </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+      <view class="tabsContent">
+        <scroll-view scroll-y="{{isScroll}}" class="tabsContentScorll" bindscrolltolower="loadMore" style="height: {{height?height+'px':'1062rpx'}}">
+          <view class="taskList">
+            <block wx:for="{{jobList}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.job_id}}">
+              <view class="scrollItem" style="margin-left:{{(item.xmove ? item.xmove : 0)+'px'}}" bindtouchstart="touchS" bindtouchend="touchE" bindtouchmove="touchM" data-wpytouchs-a="{{index}}" data-wpytouche-a="{{index}}" data-wpytouchm-a="{{index}}">
+                <view style="display:flex;width:{{width+'px'}}">
+                  <view class="taskItem" style="width:{{windowWidth+'px'}}" bindtap="toTaskDetail" id="taskItem{{item.job_id}}" data-wpytotaskdetail-a="{{item.job_id}}">
+                    <view class="taskInfoT">
+                      <view class="taskIcon">
+                        <image class="user-icon" src="{{item.iconpath?item.iconpath:'../../assets/images/task/default_photo.png'}}" mode="aspectFit"/>
+                      </view>
+                      <view class="taskInfoR">
+                        <view class="taskName">
+                          <text>{{item.creat_user_name}} | {{ item.created_at }}</text>
+                        </view>
+                        <view class="taskTime">
+                          <text>{{ item.issue_sub_class_name }}</text>
+                        </view>
+                      </view>
+                    </view>
+                    <view class="taskDesc">
+                      <text style="color:red" wx:if="{{item.sight===1&&activeIndex===3}}">*</text>{{ item.job_name }}
+                    </view>
+                  </view>
+                  <view class="deleteBtn" wx:if="{{activeIndex === 4}}" bindtap="deleteJob" data-wpydeletejob-a="{{index}}" data-wpydeletejob-b="{{item}}"><text class="white">删除</text></view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <view class="taskToCreate" catchtap="toCreateTask">
+      <image src="../../assets/images/task/create@2x.png" lazy-load="false">
+      </image>
+    </view>
+  </view>

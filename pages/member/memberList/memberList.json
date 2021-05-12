@@ -1,0 +1,20 @@
+{
+  "usingComponents": {
+    "i-index": "../../../utils/iview/dist/index/index",
+    "i-index-item": "../../../utils/iview/dist/index-item/index",
+    "van-checkbox": "@vant/weapp/checkbox/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+    "van-index-bar": "@vant/weapp/index-bar/index",
+    "van-index-anchor": "@vant/weapp/index-anchor/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "mp-loading": "/miniprogram_npm/weui-miniprogram/loading/loading",
+    "mp-navigation-bar": "/miniprogram_npm/weui-miniprogram/navigation-bar/navigation-bar"
+  },
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom"
+}
